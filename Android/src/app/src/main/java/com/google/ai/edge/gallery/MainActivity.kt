@@ -47,14 +47,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.animation.doOnEnd
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.google.ai.edge.gallery.ui.modelmanager.ModelManagerViewModel
 import com.google.ai.edge.gallery.ui.theme.GalleryTheme
 import com.google.ai.edge.litertlm.ExperimentalApi
 import com.google.ai.edge.litertlm.ExperimentalFlags
-import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -202,19 +200,6 @@ class MainActivity : ComponentActivity() {
         intent.data = link.toUri()
       }
     }
-  }
-
-  override fun onResume() {
-    super.onResume()
-
-    firebaseAnalytics?.logEvent(
-      FirebaseAnalytics.Event.APP_OPEN,
-      bundleOf(
-        "app_version" to BuildConfig.VERSION_NAME,
-        "os_version" to Build.VERSION.SDK_INT.toString(),
-        "device_model" to Build.MODEL,
-      ),
-    )
   }
 
   companion object {

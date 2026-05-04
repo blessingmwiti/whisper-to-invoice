@@ -18,8 +18,6 @@ package com.google.ai.edge.gallery.data
 
 import androidx.datastore.core.DataStore
 import com.google.ai.edge.gallery.proto.AccessTokenData
-import com.google.ai.edge.gallery.proto.BenchmarkResult
-import com.google.ai.edge.gallery.proto.BenchmarkResults
 import com.google.ai.edge.gallery.proto.Cutout
 import com.google.ai.edge.gallery.proto.CutoutCollection
 import com.google.ai.edge.gallery.proto.ImportedModel
@@ -65,10 +63,6 @@ interface DataStoreRepository {
 
   fun acceptGemmaTermsOfUse()
 
-  fun getHasRunTinyGarden(): Boolean
-
-  fun setHasRunTinyGarden(hasRun: Boolean)
-
   fun addCutout(cutout: Cutout)
 
   fun getAllCutouts(): List<Cutout>
@@ -76,16 +70,6 @@ interface DataStoreRepository {
   fun setCutout(newCutout: Cutout)
 
   fun setCutouts(cutouts: List<Cutout>)
-
-  fun setHasSeenBenchmarkComparisonHelp(seen: Boolean)
-
-  fun getHasSeenBenchmarkComparisonHelp(): Boolean
-
-  fun addBenchmarkResult(result: BenchmarkResult)
-
-  fun getAllBenchmarkResults(): List<BenchmarkResult>
-
-  fun deleteBenchmarkResult(index: Int)
 
   fun addSkill(skill: Skill)
 
@@ -116,7 +100,6 @@ class DefaultDataStoreRepository(
   private val dataStore: DataStore<Settings>,
   private val userDataDataStore: DataStore<UserData>,
   private val cutoutDataStore: DataStore<CutoutCollection>,
-  private val benchmarkResultsDataStore: DataStore<BenchmarkResults>,
   private val skillsDataStore: DataStore<Skills>,
 ) : DataStoreRepository {
   override fun saveTextInputHistory(history: List<String>) {
@@ -248,19 +231,6 @@ class DefaultDataStoreRepository(
     }
   }
 
-  override fun getHasRunTinyGarden(): Boolean {
-    return runBlocking {
-      val settings = dataStore.data.first()
-      settings.hasRunTinyGarden
-    }
-  }
-
-  override fun setHasRunTinyGarden(hasRun: Boolean) {
-    runBlocking {
-      dataStore.updateData { settings -> settings.toBuilder().setHasRunTinyGarden(hasRun).build() }
-    }
-  }
-
   override fun addCutout(cutout: Cutout) {
     runBlocking {
       cutoutDataStore.updateData { cutouts -> cutouts.toBuilder().addCutout(cutout).build() }
@@ -294,42 +264,6 @@ class DefaultDataStoreRepository(
   override fun setCutouts(cutouts: List<Cutout>) {
     runBlocking {
       cutoutDataStore.updateData { CutoutCollection.newBuilder().addAllCutout(cutouts).build() }
-    }
-  }
-
-  override fun setHasSeenBenchmarkComparisonHelp(seen: Boolean) {
-    runBlocking {
-      dataStore.updateData { settings ->
-        settings.toBuilder().setHasSeenBenchmarkComparisonHelp(seen).build()
-      }
-    }
-  }
-
-  override fun getHasSeenBenchmarkComparisonHelp(): Boolean {
-    return runBlocking {
-      val settings = dataStore.data.first()
-      settings.hasSeenBenchmarkComparisonHelp
-    }
-  }
-
-  override fun addBenchmarkResult(result: BenchmarkResult) {
-    runBlocking {
-      benchmarkResultsDataStore.updateData { results ->
-        results.toBuilder().addResult(0, result).build()
-      }
-    }
-  }
-
-  override fun getAllBenchmarkResults(): List<BenchmarkResult> {
-    return runBlocking { benchmarkResultsDataStore.data.first().resultList }
-  }
-
-  override fun deleteBenchmarkResult(index: Int) {
-    runBlocking {
-      benchmarkResultsDataStore.updateData { results ->
-        val newResults = results.toBuilder().removeResult(index).build()
-        newResults
-      }
     }
   }
 

@@ -16,7 +16,6 @@
 
 package com.google.ai.edge.gallery.ui.navigation
 
-import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
@@ -29,12 +28,8 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -69,19 +64,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.ai.edge.gallery.GalleryEvent
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskData
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskDataForBuiltinTask
 import com.google.ai.edge.gallery.data.ModelDownloadStatusType
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.data.isLegacyTasks
-import com.google.ai.edge.gallery.firebaseAnalytics
-import com.google.ai.edge.gallery.ui.benchmark.BenchmarkScreen
 import com.google.ai.edge.gallery.ui.common.ErrorDialog
 import com.google.ai.edge.gallery.ui.common.ModelPageAppBar
 import com.google.ai.edge.gallery.ui.common.chat.ModelDownloadStatusInfoPanel
 import com.google.ai.edge.gallery.ui.home.HomeScreen
-import com.google.ai.edge.gallery.ui.home.PromoScreenGm4
 import com.google.ai.edge.gallery.ui.modelmanager.GlobalModelManager
 import com.google.ai.edge.gallery.ui.modelmanager.ModelInitializationStatusType
 import com.google.ai.edge.gallery.ui.modelmanager.ModelManager
@@ -94,7 +85,6 @@ private const val TAG = "AGGalleryNavGraph"
 private const val ROUTE_HOMESCREEN = "homepage"
 private const val ROUTE_MODEL_LIST = "model_list"
 private const val ROUTE_MODEL = "route_model"
-private const val ROUTE_BENCHMARK = "benchmark"
 private const val ROUTE_MODEL_MANAGER = "model_manager"
 private const val ENTER_ANIMATION_DURATION_MS = 500
 private val ENTER_ANIMATION_EASING = EaseOutExpo
@@ -188,64 +178,18 @@ fun GalleryNavHost(
   ) {
     // Home screen.
     composable(route = ROUTE_HOMESCREEN) {
-      // Create a state to trigger PromoScreen fade in animation.
-      val promoId = "gm4"
-      Box(modifier = modifier.fillMaxSize()) {
-        var promoDismissed by remember { mutableStateOf(false) }
-
-        val homeScreenContent: @Composable () -> Unit = {
-          HomeScreen(
-            modelManagerViewModel = modelManagerViewModel,
-            tosViewModel = hiltViewModel(),
-            enableAnimation = enableHomeScreenAnimation,
-            navigateToTaskScreen = { task ->
-              pickedTask = task
-              enableModelListAnimation = true
-              navController.navigate(ROUTE_MODEL_LIST)
-              firebaseAnalytics?.logEvent(
-                GalleryEvent.CAPABILITY_SELECT.id,
-                Bundle().apply { putString("capability_name", task.id) },
-              )
-            },
-            onModelsClicked = { navController.navigate(ROUTE_MODEL_MANAGER) },
-            gm4 = true,
-          )
-        }
-
-        // Show home page directly if promo has been viewed.
-        if (modelManagerViewModel.dataStoreRepository.hasViewedPromo(promoId = promoId)) {
-          homeScreenContent()
-        }
-        // If the promo has not been viewed, show promo screen first.
-        else {
-          AnimatedContent(
-            targetState = promoDismissed,
-            label = "PromoToHome",
-            transitionSpec = { fadeIn() togetherWith fadeOut() },
-          ) { dismissed ->
-            if (dismissed) {
-              homeScreenContent()
-            } else {
-              var startAnimation by remember { mutableStateOf(false) }
-              LaunchedEffect(Unit) {
-                delay(0L)
-                startAnimation = true
-              }
-              AnimatedVisibility(
-                visible = startAnimation,
-                enter = scaleIn(initialScale = 1.05f, animationSpec = tween(durationMillis = 1000)),
-              ) {
-                PromoScreenGm4(
-                  onDismiss = {
-                    modelManagerViewModel.dataStoreRepository.addViewedPromoId(promoId = promoId)
-                    promoDismissed = true
-                  }
-                )
-              }
-            }
-          }
-        }
-      }
+      HomeScreen(
+        modelManagerViewModel = modelManagerViewModel,
+        tosViewModel = hiltViewModel(),
+        enableAnimation = enableHomeScreenAnimation,
+        navigateToTaskScreen = { task ->
+          pickedTask = task
+          enableModelListAnimation = true
+          navController.navigate(ROUTE_MODEL_LIST)
+        },
+        onModelsClicked = { navController.navigate(ROUTE_MODEL_MANAGER) },
+        gm4 = true,
+      )
     }
 
     // Model list.
@@ -274,13 +218,7 @@ fun GalleryNavHost(
           onModelClicked = { model ->
             navController.navigate("$ROUTE_MODEL/${it.id}/${model.name}")
           },
-          onBenchmarkClicked = { model ->
-            firebaseAnalytics?.logEvent(
-              GalleryEvent.CAPABILITY_SELECT.id,
-              Bundle().apply { putString("capability_name", "benchmark_${model.name}") },
-            )
-            navController.navigate("$ROUTE_BENCHMARK/${model.name}")
-          },
+          onBenchmarkClicked = { _ -> },
           navigateUp = {
             enableHomeScreenAnimation = false
             navController.navigateUp()
@@ -378,26 +316,14 @@ fun GalleryNavHost(
     composable(
       route = ROUTE_MODEL_MANAGER,
       enterTransition = {
-        if (
-          initialState.destination.route?.startsWith(ROUTE_BENCHMARK) == true ||
-            initialState.destination.route?.startsWith(ROUTE_MODEL) == true
-        ) {
-          null
-        } else {
-          slideUpEnter()
-        }
+        if (initialState.destination.route?.startsWith(ROUTE_MODEL) == true) null
+        else slideUpEnter()
       },
       exitTransition = {
-        if (
-          targetState.destination.route?.startsWith(ROUTE_BENCHMARK) == true ||
-            targetState.destination.route?.startsWith(ROUTE_MODEL) == true
-        ) {
-          null
-        } else {
-          slideDownExit()
-        }
+        if (targetState.destination.route?.startsWith(ROUTE_MODEL) == true) null
+        else slideDownExit()
       },
-    ) { backStackEntry ->
+    ) { _ ->
       GlobalModelManager(
         viewModel = modelManagerViewModel,
         navigateUp = {
@@ -407,35 +333,8 @@ fun GalleryNavHost(
         onModelSelected = { task, model ->
           navController.navigate("$ROUTE_MODEL/${task.id}/${model.name}")
         },
-        onBenchmarkClicked = { model ->
-          firebaseAnalytics?.logEvent(
-            GalleryEvent.CAPABILITY_SELECT.id,
-            Bundle().apply { putString("capability_name", "benchmark_${model.name}") },
-          )
-          navController.navigate("$ROUTE_BENCHMARK/${model.name}")
-        },
+        onBenchmarkClicked = { _ -> },
       )
-    }
-
-    // Benchmark creation page.
-    composable(
-      route = "$ROUTE_BENCHMARK/{modelName}",
-      arguments = listOf(navArgument("modelName") { type = NavType.StringType }),
-      enterTransition = { slideEnter() },
-      exitTransition = { slideExit() },
-    ) { backStackEntry ->
-      val modelName = backStackEntry.arguments?.getString("modelName") ?: ""
-
-      modelManagerViewModel.getModelByName(name = modelName)?.let { model ->
-        BenchmarkScreen(
-          initialModel = model,
-          modelManagerViewModel = modelManagerViewModel,
-          onBackClicked = {
-            enableModelListAnimation = false
-            navController.navigateUp()
-          },
-        )
-      }
     }
   }
 
