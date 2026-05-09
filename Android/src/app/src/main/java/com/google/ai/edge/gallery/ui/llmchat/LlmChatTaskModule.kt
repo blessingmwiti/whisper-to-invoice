@@ -44,11 +44,6 @@ import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.runtime.runtimeHelper
 import com.google.ai.edge.gallery.ui.theme.emptyStateContent
 import com.google.ai.edge.gallery.ui.theme.emptyStateTitle
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import dagger.multibindings.IntoSet
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 
@@ -124,15 +119,8 @@ class LlmChatTask @Inject constructor() : CustomTask {
   }
 }
 
-@Module
-@InstallIn(SingletonComponent::class) // Or another component that fits your scope
-internal object LlmChatTaskModule {
-  @Provides
-  @IntoSet
-  fun provideTask(): CustomTask {
-    return LlmChatTask()
-  }
-}
+// LlmChatTaskModule removed — excluded from home screen in Whisper to Invoice.
+// LlmChatTask has @Inject constructor so Hilt can still build it if needed directly.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Ask image.
@@ -188,15 +176,7 @@ class LlmAskImageTask @Inject constructor() : CustomTask {
   }
 }
 
-@Module
-@InstallIn(SingletonComponent::class) // Or another component that fits your scope
-internal object LlmAskImageModule {
-  @Provides
-  @IntoSet
-  fun provideTask(): CustomTask {
-    return LlmAskImageTask()
-  }
-}
+// LlmAskImageModule removed — excluded from home screen in Whisper to Invoice.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Ask audio.
@@ -253,12 +233,4 @@ class LlmAskAudioTask @Inject constructor() : CustomTask {
   }
 }
 
-@Module
-@InstallIn(SingletonComponent::class) // Or another component that fits your scope
-internal object LlmAskAudioModule {
-  @Provides
-  @IntoSet
-  fun provideTask(): CustomTask {
-    return LlmAskAudioTask()
-  }
-}
+// LlmAskAudioModule removed — excluded from home screen in Whisper to Invoice.

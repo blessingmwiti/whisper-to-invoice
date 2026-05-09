@@ -33,11 +33,11 @@ android {
   compileSdk = 35
 
   defaultConfig {
-    applicationId = "com.google.aiedge.gallery"
+    applicationId = "com.whispertoinvoice.app"
     minSdk = 31
     targetSdk = 35
-    versionCode = 29
-    versionName = "1.0.12"
+    versionCode = 1
+    versionName = "1.0.0"
 
     // Needed for HuggingFace auth workflows.
     // Use the scheme of the "Redirect URLs" in HuggingFace app.

@@ -27,11 +27,6 @@ import com.google.ai.edge.gallery.data.Model
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.ui.llmchat.LlmChatModelHelper
 import com.google.ai.edge.litertlm.tool
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import dagger.multibindings.IntoSet
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 
@@ -117,12 +112,5 @@ class AgentChatTask @Inject constructor() : CustomTask {
   }
 }
 
-@Module
-@InstallIn(SingletonComponent::class)
-internal object AgentChatTaskModule {
-  @Provides
-  @IntoSet
-  fun provideTask(): CustomTask {
-    return AgentChatTask()
-  }
-}
+// AgentChatTaskModule removed — excluded from home screen in Whisper to Invoice.
+// AgentChatTask has @Inject constructor so Hilt can still build it directly if needed.

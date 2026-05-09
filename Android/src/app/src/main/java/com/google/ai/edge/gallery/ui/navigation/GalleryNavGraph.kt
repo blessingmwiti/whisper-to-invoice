@@ -188,7 +188,7 @@ fun GalleryNavHost(
           navController.navigate(ROUTE_MODEL_LIST)
         },
         onModelsClicked = { navController.navigate(ROUTE_MODEL_MANAGER) },
-        gm4 = true,
+        gm4 = false,
       )
     }
 

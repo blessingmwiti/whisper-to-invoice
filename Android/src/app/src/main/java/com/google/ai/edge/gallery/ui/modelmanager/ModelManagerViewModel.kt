@@ -82,7 +82,34 @@ private const val MODEL_ALLOWLIST_TEST_FILENAME = "model_allowlist_test.json"
 private const val ALLOWLIST_BASE_URL =
   "https://raw.githubusercontent.com/google-ai-edge/gallery/refs/heads/main/model_allowlists"
 
-private const val TEST_MODEL_ALLOW_LIST = ""
+private const val TEST_MODEL_ALLOW_LIST = """
+{
+  "models": [
+    {
+      "name": "Gemma-4-E2B-it",
+      "modelId": "litert-community/gemma-4-E2B-it-litert-lm",
+      "modelFile": "gemma-4-E2B-it.litertlm",
+      "commitHash": "7fa1d78473894f7e736a21d920c3aa80f950c0db",
+      "description": "Gemma 4 E2B — on-device multimodal model with audio support. Powers Whisper to Invoice.",
+      "sizeInBytes": 2583085056,
+      "minDeviceMemoryInGb": 4,
+      "llmSupportAudio": true,
+      "llmSupportImage": false,
+      "llmSupportThinking": false,
+      "defaultConfig": {
+        "topK": 64,
+        "topP": 0.95,
+        "temperature": 0.2,
+        "maxContextLength": 8000,
+        "maxTokens": 2048,
+        "accelerators": "gpu,cpu",
+        "visionAccelerator": "gpu"
+      },
+      "taskTypes": ["invoice_extraction"]
+    }
+  ]
+}
+"""
 
 data class ModelInitializationStatus(
   val status: ModelInitializationStatusType,
