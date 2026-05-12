@@ -72,6 +72,8 @@ import com.google.ai.edge.gallery.data.isLegacyTasks
 import com.google.ai.edge.gallery.ui.common.ErrorDialog
 import com.google.ai.edge.gallery.ui.common.ModelPageAppBar
 import com.google.ai.edge.gallery.ui.common.chat.ModelDownloadStatusInfoPanel
+import com.google.ai.edge.gallery.customtasks.invoiceextraction.BusinessProfileScreen
+import com.google.ai.edge.gallery.customtasks.invoiceextraction.InvoiceListScreen
 import com.google.ai.edge.gallery.ui.home.HomeScreen
 import com.google.ai.edge.gallery.ui.modelmanager.GlobalModelManager
 import com.google.ai.edge.gallery.ui.modelmanager.ModelInitializationStatusType
@@ -86,6 +88,8 @@ private const val ROUTE_HOMESCREEN = "homepage"
 private const val ROUTE_MODEL_LIST = "model_list"
 private const val ROUTE_MODEL = "route_model"
 private const val ROUTE_MODEL_MANAGER = "model_manager"
+private const val ROUTE_BUSINESS_PROFILE = "business_profile"
+private const val ROUTE_INVOICE_LIST = "invoice_list"
 private const val ENTER_ANIMATION_DURATION_MS = 500
 private val ENTER_ANIMATION_EASING = EaseOutExpo
 private const val ENTER_ANIMATION_DELAY_MS = 100
@@ -188,6 +192,8 @@ fun GalleryNavHost(
           navController.navigate(ROUTE_MODEL_LIST)
         },
         onModelsClicked = { navController.navigate(ROUTE_MODEL_MANAGER) },
+        onBusinessProfileClicked = { navController.navigate(ROUTE_BUSINESS_PROFILE) },
+        onInvoiceListClicked = { navController.navigate(ROUTE_INVOICE_LIST) },
         gm4 = false,
       )
     }
@@ -310,6 +316,24 @@ fun GalleryNavHost(
           }
         }
       }
+    }
+
+    // Business profile settings.
+    composable(
+      route = ROUTE_BUSINESS_PROFILE,
+      enterTransition = { slideEnter() },
+      exitTransition = { slideExit() },
+    ) {
+      BusinessProfileScreen(onNavigateUp = { navController.navigateUp() })
+    }
+
+    // Invoice history list.
+    composable(
+      route = ROUTE_INVOICE_LIST,
+      enterTransition = { slideEnter() },
+      exitTransition = { slideExit() },
+    ) {
+      InvoiceListScreen(onNavigateUp = { navController.navigateUp() })
     }
 
     // Global model manager page.

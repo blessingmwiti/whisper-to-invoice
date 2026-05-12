@@ -120,6 +120,8 @@ import com.google.ai.edge.gallery.data.BuiltInTaskId
 import com.google.ai.edge.gallery.data.Category
 import com.google.ai.edge.gallery.data.CategoryInfo
 import com.google.ai.edge.gallery.data.Task
+import androidx.compose.material.icons.rounded.Business
+import androidx.compose.material.icons.rounded.History
 import com.google.ai.edge.gallery.ui.common.RevealingText
 import com.google.ai.edge.gallery.ui.common.SwipingText
 import com.google.ai.edge.gallery.ui.common.TaskIcon
@@ -165,6 +167,8 @@ fun HomeScreen(
   enableAnimation: Boolean,
   modifier: Modifier = Modifier,
   gm4: Boolean = false,
+  onBusinessProfileClicked: () -> Unit = {},
+  onInvoiceListClicked: () -> Unit = {},
 ) {
   val uiState by modelManagerViewModel.uiState.collectAsState()
   var showSettingsDialog by remember { mutableStateOf(false) }
@@ -321,6 +325,46 @@ fun HomeScreen(
                         listOf(
                           MaterialTheme.customColors.taskBgGradientColors[1][0],
                           MaterialTheme.customColors.taskBgGradientColors[1][1],
+                        )
+                    ),
+                )
+              }
+              Spacer(modifier = Modifier.height(16.dp))
+              Row(modifier = Modifier.fillMaxWidth()) {
+                SquareDrawerItem(
+                  label = "My Invoices",
+                  description = "View saved invoices",
+                  icon = Icons.Rounded.History,
+                  onClick = {
+                    scope.launch { drawerState.close() }
+                    scope.launch { delay(50); onInvoiceListClicked() }
+                  },
+                  modifier = Modifier.weight(1f),
+                  iconBrush =
+                    linearGradient(
+                      colors =
+                        listOf(
+                          MaterialTheme.customColors.taskBgGradientColors[0][0],
+                          MaterialTheme.customColors.taskBgGradientColors[0][1],
+                        )
+                    ),
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                SquareDrawerItem(
+                  label = "Business Profile",
+                  description = "Name, logo, payment",
+                  icon = Icons.Rounded.Business,
+                  onClick = {
+                    scope.launch { drawerState.close() }
+                    scope.launch { delay(50); onBusinessProfileClicked() }
+                  },
+                  modifier = Modifier.weight(1f),
+                  iconBrush =
+                    linearGradient(
+                      colors =
+                        listOf(
+                          MaterialTheme.customColors.taskBgGradientColors[3][0],
+                          MaterialTheme.customColors.taskBgGradientColors[3][1],
                         )
                     ),
                 )

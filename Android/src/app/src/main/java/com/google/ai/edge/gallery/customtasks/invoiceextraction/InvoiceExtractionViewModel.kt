@@ -1,6 +1,9 @@
 package com.google.ai.edge.gallery.customtasks.invoiceextraction
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.ai.edge.gallery.data.Model
@@ -8,43 +11,59 @@ import com.google.ai.edge.gallery.ui.llmchat.LlmChatModelHelper
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.File
 
 private const val TAG = "InvoiceExtractionVM"
 
 enum class ExtractionState {
   IDLE,       // waiting for user to record
   PROCESSING, // Gemma 4 is running
-  DONE,       // invoice extracted successfully
-  ERROR,      // something went wrong
+  DONE,       // invoice extracted, user can edit / save
+  SAVING,     // generating PDF + saving
+  SAVED,      // PDF ready — show share button
+  ERROR,
 }
 
 data class InvoiceExtractionUiState(
   val state: ExtractionState = ExtractionState.IDLE,
+  /** Editable copy shown on the result screen. Mutated by user edits. */
   val invoice: InvoiceData? = null,
   val rawResponse: String = "",
   val error: String = "",
+  /** Absolute path of the generated PDF, set after SAVED. */
+  val pdfPath: String = "",
+  /** ID of the saved invoice record. */
+  val savedId: String = "",
 )
 
 @HiltViewModel
-class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
+class InvoiceExtractionViewModel @Inject constructor(
+  @ApplicationContext private val appContext: Context,
+) : ViewModel() {
 
   private val _uiState = MutableStateFlow(InvoiceExtractionUiState())
   val uiState = _uiState.asStateFlow()
 
   private val gson = Gson()
+  private val repo by lazy { InvoiceRepository(appContext) }
+  private val pdfGen by lazy { InvoicePdfGenerator(appContext) }
+  private val profileRepo by lazy { BusinessProfileRepository(appContext) }
 
-  /** Call this when the user finishes recording. Sends audio to Gemma 4. */
+  // ---------------------------------------------------------------------------
+  // Audio → Gemma 4 → invoice JSON
+  // ---------------------------------------------------------------------------
+
   fun extractInvoice(model: Model, audioPcmBytes: ByteArray) {
     _uiState.update { it.copy(state = ExtractionState.PROCESSING, error = "", rawResponse = "") }
 
     viewModelScope.launch(Dispatchers.Default) {
-      // Wait for model to be ready (it's initialized by the framework before this screen opens)
       var waited = 0
       while (model.instance == null && waited < 30_000) {
         kotlinx.coroutines.delay(200)
@@ -68,14 +87,10 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
           accumulated.append(partial)
           if (done) {
             val raw = accumulated.toString().trim()
-            Log.d(TAG, "Gemma raw response: $raw")
+            Log.d(TAG, "Gemma raw: $raw")
             val invoice = parseInvoice(raw, today)
             _uiState.update {
-              it.copy(
-                state = ExtractionState.DONE,
-                invoice = invoice,
-                rawResponse = raw,
-              )
+              it.copy(state = ExtractionState.DONE, invoice = invoice, rawResponse = raw)
             }
           }
         },
@@ -88,12 +103,119 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // User edits — called from the result screen as the user types
+  // ---------------------------------------------------------------------------
+
+  fun updateClient(name: String) = mutateInvoice { it.copy(clientName = name) }
+  fun updateDate(date: String) = mutateInvoice { it.copy(date = date) }
+  fun updateNotes(notes: String) = mutateInvoice { it.copy(notes = notes) }
+  fun updateCurrency(currency: String) = mutateInvoice { it.copy(currency = currency) }
+
+  fun updateItem(index: Int, item: InvoiceLineItem) {
+    mutateInvoice { inv ->
+      val items = inv.items.toMutableList()
+      if (index in items.indices) items[index] = item
+      val subtotal = items.sumOf { it.total }
+      inv.copy(items = items, subtotal = subtotal, total = subtotal + inv.tax)
+    }
+  }
+
+  fun addItem() {
+    mutateInvoice { inv ->
+      val items = inv.items + InvoiceLineItem("", 1.0, 0.0, 0.0)
+      inv.copy(items = items)
+    }
+  }
+
+  fun removeItem(index: Int) {
+    mutateInvoice { inv ->
+      val items = inv.items.toMutableList().also { if (index in it.indices) it.removeAt(index) }
+      val subtotal = items.sumOf { it.total }
+      inv.copy(items = items, subtotal = subtotal, total = subtotal + inv.tax)
+    }
+  }
+
+  fun updateTax(tax: Double) {
+    mutateInvoice { inv -> inv.copy(tax = tax, total = inv.subtotal + tax) }
+  }
+
+  private fun mutateInvoice(transform: (InvoiceData) -> InvoiceData) {
+    _uiState.update { state ->
+      state.invoice?.let { state.copy(invoice = transform(it)) } ?: state
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Save invoice + generate PDF
+  // ---------------------------------------------------------------------------
+
+  fun saveAndGeneratePdf() {
+    val invoice = _uiState.value.invoice ?: return
+    _uiState.update { it.copy(state = ExtractionState.SAVING) }
+
+    viewModelScope.launch(Dispatchers.IO) {
+      try {
+        val profile = profileRepo.get()
+        // Save JSON record first (without PDF path)
+        val saved = repo.save(invoice)
+        // Generate PDF
+        val pdfFile = pdfGen.generate(invoice, profile, saved.id)
+        // Update record with PDF path
+        repo.updatePdfPath(saved.id, pdfFile.absolutePath)
+
+        _uiState.update {
+          it.copy(
+            state = ExtractionState.SAVED,
+            pdfPath = pdfFile.absolutePath,
+            savedId = saved.id,
+          )
+        }
+      } catch (e: Exception) {
+        Log.e(TAG, "PDF generation failed", e)
+        _uiState.update { it.copy(state = ExtractionState.ERROR, error = "Failed to generate PDF: ${e.message}") }
+      }
+    }
+  }
+
+  fun shareViaWhatsApp(context: Context) {
+    val pdfPath = _uiState.value.pdfPath
+    if (pdfPath.isEmpty()) return
+    val file = File(pdfPath)
+    if (!file.exists()) return
+
+    val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
+    val clientName = _uiState.value.invoice?.clientName?.ifEmpty { "invoice" } ?: "invoice"
+
+    // Try WhatsApp first, fall back to system share sheet
+    val whatsappIntent = Intent(Intent.ACTION_SEND).apply {
+      type = "application/pdf"
+      setPackage("com.whatsapp")
+      putExtra(Intent.EXTRA_STREAM, uri)
+      putExtra(Intent.EXTRA_TEXT, "Please find your invoice attached.")
+      addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+      type = "application/pdf"
+      putExtra(Intent.EXTRA_STREAM, uri)
+      putExtra(Intent.EXTRA_SUBJECT, "Invoice – $clientName")
+      putExtra(Intent.EXTRA_TEXT, "Please find your invoice attached.")
+      addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+
+    val chooser = Intent.createChooser(shareIntent, "Share invoice via…").apply {
+      putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(whatsappIntent))
+    }
+    context.startActivity(chooser)
+  }
+
   fun reset() {
     _uiState.update { InvoiceExtractionUiState() }
   }
 
   // ---------------------------------------------------------------------------
-  // Private helpers
+  // Prompt
   // ---------------------------------------------------------------------------
 
   private fun buildPrompt(today: String): String = """
@@ -125,8 +247,11 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
     - Return ONLY the JSON, nothing else
   """.trimIndent()
 
+  // ---------------------------------------------------------------------------
+  // JSON parsing
+  // ---------------------------------------------------------------------------
+
   private fun parseInvoice(raw: String, today: String): InvoiceData {
-    // Strip markdown code fences if Gemma adds them despite instructions
     val cleaned = raw
       .removePrefix("```json").removePrefix("```")
       .removeSuffix("```").trim()
@@ -157,7 +282,7 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
   }
 
   // ---------------------------------------------------------------------------
-  // PCM → WAV conversion (LiteRT expects WAV format)
+  // PCM → WAV
   // ---------------------------------------------------------------------------
 
   private fun pcmToWav(pcmBytes: ByteArray): ByteArray {
@@ -168,7 +293,6 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
     val blockAlign = channels * bitsPerSample / 8
     val dataSize = pcmBytes.size
     val headerSize = 44
-
     val wav = ByteArray(headerSize + dataSize)
     val totalSize = headerSize + dataSize - 8
 
@@ -178,36 +302,31 @@ class InvoiceExtractionViewModel @Inject constructor() : ViewModel() {
       arr[offset + 2] = ((value shr 16) and 0xFF).toByte()
       arr[offset + 3] = ((value shr 24) and 0xFF).toByte()
     }
-
     fun writeShort(arr: ByteArray, offset: Int, value: Int) {
       arr[offset] = (value and 0xFF).toByte()
       arr[offset + 1] = ((value shr 8) and 0xFF).toByte()
     }
 
-    // RIFF header
     "RIFF".toByteArray().copyInto(wav, 0)
     writeInt(wav, 4, totalSize)
     "WAVE".toByteArray().copyInto(wav, 8)
-    // fmt chunk
     "fmt ".toByteArray().copyInto(wav, 12)
-    writeInt(wav, 16, 16)           // chunk size
-    writeShort(wav, 20, 1)          // PCM format
+    writeInt(wav, 16, 16)
+    writeShort(wav, 20, 1)
     writeShort(wav, 22, channels)
     writeInt(wav, 24, sampleRate)
     writeInt(wav, 28, byteRate)
     writeShort(wav, 32, blockAlign)
     writeShort(wav, 34, bitsPerSample)
-    // data chunk
     "data".toByteArray().copyInto(wav, 36)
     writeInt(wav, 40, dataSize)
     pcmBytes.copyInto(wav, 44)
-
     return wav
   }
 }
 
 // ---------------------------------------------------------------------------
-// Gson DTO — mirrors the JSON the prompt requests
+// Gson DTOs
 // ---------------------------------------------------------------------------
 
 private data class ItemDto(
