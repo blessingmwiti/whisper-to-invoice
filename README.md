@@ -1,87 +1,183 @@
-# Google AI Edge Gallery ✨
+# Whisper to Invoice
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/google-ai-edge/gallery)](https://github.com/google-ai-edge/gallery/releases)
+[![Gemma 4](https://img.shields.io/badge/Powered%20by-Gemma%204-blue)](https://ai.google.dev/gemma)
+[![Offline](https://img.shields.io/badge/Works-100%25%20Offline-green)](https://github.com/google-ai-edge/gallery)
 
-**Explore, Experience, and Evaluate the Future of On-Device Generative AI with Google AI Edge.**
+> **Gemma 4 Good Hackathon** — Kaggle × Google DeepMind submission
 
-AI Edge Gallery is the premier destination for running the world's most powerful open-source Large Language Models (LLMs) on your mobile device. Experience high-performance Generative AI directly on your hardware—fully offline, private, and lightning-fast.
+**Speak your sale. Get a professional invoice. No internet required.**
 
-**Now Featuring: Gemma 4**
+Whisper to Invoice is a fully offline Android app for small business owners anywhere in the world. Describe a sale out loud and Gemma 4 transcribes it, extracts the line items, quantities, prices, client name, and date, then generates a professional PDF invoice you can share instantly via WhatsApp or any other channel.
 
-The latest version brings official support for the newly released Gemma 4 family. As the centerpiece of this release, Gemma 4 allows you to test the cutting edge of on-device AI. Experience advanced reasoning, logic, and creative capabilities without ever sending your data to a server.
+Built for anyone who runs a business on the move — freelancers, market traders, delivery operators, repair technicians, independent contractors — people who need invoices but have no time to type, unreliable connectivity, and real data privacy concerns.
 
+---
 
-| **Install the app today from Google Play** | **Install the app today from App Store** |
-| :--- | :--- |
-| <a href='https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery'><img alt='Get it on Google Play' height="120" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a> | <a href="https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337?itscg=30200&itsct=apps_box_badge&mttnsubad=6749645337" style="display: inline-block;"> <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1771977600" alt="Download on the App Store" style="width: 246px; height: 90px; vertical-align: middle; object-fit: contain;" /></a> |
+## The Problem
 
-For users without Google Play access, install the apk from the [**latest release**](https://github.com/google-ai-edge/gallery/releases/latest/)
+Hundreds of millions of small business owners worldwide conduct transactions verbally but have no practical way to generate invoices on the spot. Existing invoicing tools require:
 
+- Reliable internet connectivity
+- Typing on small screens mid-transaction
+- Technical literacy and onboarding
+- Monthly subscription fees
 
-## App Preview
+This leaves most transactions undocumented, limiting access to credit, trade finance, and formal business relationships — a problem that cuts across every market and continent.
 
-<img width="480" alt="01" src="https://github.com/user-attachments/assets/a809ad78-aef4-4169-91ee-de7213cbb3bd" />
-<img width="480" alt="02" src="https://github.com/user-attachments/assets/1effd10d-f45a-4f7b-9435-f50f1bdd36b6" />
-<img width="480" alt="03" src="https://github.com/user-attachments/assets/e5089e41-2c18-4fbe-9011-ebe9e5a02044" />
-<img width="480" alt="04" src="https://github.com/user-attachments/assets/0f39d3ed-7403-4606-a7c6-b2c7e51ba6c1" />
-<img width="480" alt="05" src="https://github.com/user-attachments/assets/8c229e96-b598-4735-9f60-e96907e1d5d5" />
-<img width="480" alt="06" src="https://github.com/user-attachments/assets/ac9fb77b-81de-4197-9ed3-f6fe58290b3e" />
-<img width="480" alt="07" src="https://github.com/user-attachments/assets/bc86ba07-2eaf-49b1-980f-8a87a85c596f" />
-<img width="480" alt="08" src="https://github.com/user-attachments/assets/061564ed-030f-4630-810b-13a7863fce4c" />
+## The Solution
 
-## ✨ Core Features
+Whisper to Invoice removes every barrier:
 
-* **Agent Skills**: Transform your LLM from a conversationalist into a proactive assistant. Use the Agent Skills tile to augment model capabilities with tools like Wikipedia for fact-grounding, interactive maps, and rich visual summary cards. You can even load modular skills from a URL or browse community contributions on GitHub Discussions.
+1. **Speak** — describe your sale naturally, in whatever language you use
+2. **Review** — Gemma 4 structures the invoice; edit any field before saving
+3. **Share** — generate a PDF and send via WhatsApp in one tap
 
-* **AI Chat with Thinking Mode**: Engage in fluid, multi-turn conversations and toggle the new Thinking Mode to peek "under the hood." This feature allows you to see the model’s step-by-step reasoning process, which is perfect for understanding complex problem-solving. Note: Thinking Mode currently works with supported models, starting with the Gemma 4 family.
+Everything runs on the device. Financial data never leaves the phone.
 
-* **Ask Image**: Use multimodal power to identify objects, solve visual puzzles, or get detailed descriptions using your device’s camera or photo gallery.
+### Built for Kenya too
 
-* **Audio Scribe**: Transcribe and translate voice recordings into text in real-time using high-efficiency on-device language models.
+In Kenya and across East Africa, business conversations naturally blend English and Swahili — a style called *sheng* or code-switching. The app handles this natively: a market vendor in Mombasa, a boda boda operator in Kisumu, or a trader at Gikomba can speak exactly as they would to a customer — mixing Swahili number words (*moja, mbili, tatu…*), units, and item names — and Gemma 4 understands it all. No translation step, no special mode.
 
-* **Prompt Lab**: A dedicated workspace to test different prompts and single-turn use cases with granular control over model parameters like temperature and top-k.
+---
 
-* **Mobile Actions**: Unlock offline device controls and automated tasks powered entirely by a finetune of FuntionGemma 270m.
+## How Gemma 4 Is Used
 
-* **Tiny Garden**: A fun, experimental mini-game that uses natural language to plant and harvest a virtual garden using a finetune of FunctionGemma 270m.
+The app uses **Gemma 4 E2B** (2 billion parameter, instruction-tuned) running fully on-device via [Google AI Edge LiteRT](https://github.com/google-ai-edge/LiteRT-LM).
 
-* **Model Management & Benchmark**: Gallery is a flexible sandbox for a wide variety of open-source models. Easily download models from the list or load your own custom models. Manage your model library effortlessly and run benchmark tests to understand exactly how each model performs on your specific hardware.
+The model receives the audio recording alongside a structured prompt that instructs it to:
 
-* **100% On-Device Privacy**: All model inferences happen directly on your device hardware. No internet is required, ensuring total privacy for your prompts, images, and sensitive data.
+- Transcribe the spoken description (English, Swahili, or mixed code-switching)
+- Extract structured invoice fields: client name, date, line items (description, quantity, unit price), currency, tax, and notes
+- Return a strict JSON object — no prose, no markdown
 
-## 🏁 Get Started in Minutes!
+The prompt handles Swahili number words (moja=1, mbili=2, tatu=3…) and defaults sensibly when fields are not mentioned (today's date, KES currency, zero tax).
 
-1. **Check OS Requirement**: Android 12 and up, and iOS 17 and up.
-2.  **Download the App:**
-    - Install the app from [Google Play](https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery) or [App Store](https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337).
-    - For users without Google Play access: install the apk from the [**latest release**](https://github.com/google-ai-edge/gallery/releases/latest/)
-3.  **Install & Explore:** For detailed installation instructions (including for corporate devices) and a full user guide, head over to our [**Project Wiki**](https://github.com/google-ai-edge/gallery/wiki)!
+Gemma 4's multimodal audio capabilities make this possible in a single inference call — no separate speech-to-text step, no server round-trip.
 
-## 🛠️ Technology Highlights
+---
 
-*   **Google AI Edge:** Core APIs and tools for on-device ML.
-*   **LiteRT:** Lightweight runtime for optimized model execution.
-*   **Hugging Face Integration:** For model discovery and download.
+## Features
 
-## ⌨️ Development
+- **Voice-to-invoice** — speak a sale, get a structured invoice in seconds
+- **Bilingual** — English, Swahili, and code-switched input
+- **Fully editable** — correct any field, add/remove line items, set tax as a percentage
+- **Business profile** — your name, address, logo, and payment instructions appear on every invoice
+- **PDF generation** — professional A4 invoice, generated on-device, no libraries required
+- **WhatsApp share** — one tap to share the PDF with your client
+- **Invoice history** — all past invoices saved locally, re-shareable at any time
+- **100% offline** — after the one-time model download, no internet ever required
+- **Privacy first** — financial data never leaves the device
 
-Check out the [development notes](DEVELOPMENT.md) for instructions about how to build the app locally.
+---
 
-## 🤝 Feedback
+## Technical Stack
 
-This is an **experimental Beta release**, and your input is crucial!
+| Layer | Technology |
+|---|---|
+| Language | Kotlin |
+| UI | Jetpack Compose |
+| On-device ML | Google AI Edge SDK + LiteRT (MediaPipe LLM Inference) |
+| Model | Gemma 4 E2B — downloaded from HuggingFace on first launch |
+| Audio recording | Android AudioRecord API |
+| PDF generation | Android PdfDocument API (Canvas-based, zero external deps) |
+| Persistence | JSON files (invoices) + SharedPreferences (business profile) |
+| Sharing | Android FileProvider + Intent.ACTION_SEND |
+| DI | Hilt |
 
-*   🐞 **Found a bug?** [Report it here!](https://github.com/google-ai-edge/gallery/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D)
-*   💡 **Have an idea?** [Suggest a feature!](https://github.com/google-ai-edge/gallery/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D)
+---
 
-## 📄 License
+## Getting Started
+
+### Requirements
+
+- Android 12+ (API 31+)
+- 4 GB+ RAM recommended for Gemma 4 E2B
+- ~2.6 GB free storage for model download
+- Microphone permission
+
+### Build
+
+```bash
+git clone https://github.com/YOUR_USERNAME/whisper-to-invoice
+cd whisper-to-invoice/Android/src
+./gradlew assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+> **Note:** LiteRT does not run in the Android emulator. A physical device is required.
+
+### First Launch
+
+On first launch the app will prompt you to download Gemma 4 E2B (~2.6 GB). After that, everything works offline permanently.
+
+---
+
+## Project Structure
+
+```
+Android/src/app/src/main/java/com/google/ai/edge/gallery/
+├── customtasks/
+│   └── invoiceextraction/
+│       ├── InvoiceExtractionTaskModule.kt   # Task registration (Hilt)
+│       ├── InvoiceExtractionScreen.kt       # Main UI (record → review → share)
+│       ├── InvoiceExtractionViewModel.kt    # Audio → Gemma 4 → JSON → PDF
+│       ├── InvoiceData.kt                   # Data models
+│       ├── InvoiceRepository.kt             # Local JSON persistence
+│       ├── InvoicePdfGenerator.kt           # On-device PDF via PdfDocument
+│       ├── InvoiceListScreen.kt             # Invoice history
+│       ├── BusinessProfile.kt               # Business profile model + repo
+│       └── BusinessProfileScreen.kt         # Profile settings UI
+└── ui/
+    ├── home/HomeScreen.kt                   # App home + navigation drawer
+    └── navigation/GalleryNavGraph.kt        # Nav graph (routes + transitions)
+```
+
+---
+
+## Design Decisions
+
+**Why no Whisper?** The original concept used Whisper for transcription. Gemma 4's native audio support means a single model handles transcription, comprehension, and structuring — simpler architecture, one fewer download, same offline guarantee.
+
+**Why PdfDocument instead of iText?** Android's built-in `PdfDocument` API covers everything needed for a clean A4 invoice with zero extra dependencies. Smaller APK, no licence concerns, no network calls.
+
+**Why JSON files instead of Room?** For the hackathon scope, flat JSON files in internal storage are sufficient, easier to inspect during development, and have zero schema migration overhead.
+
+**Why SharedPreferences for business profile?** The profile is a small, flat set of strings. SharedPreferences is the right tool — no over-engineering.
+
+---
+
+## Attribution
+
+This project is a fork of [**Google AI Edge Gallery**](https://github.com/google-ai-edge/gallery) — an open-source Android app for exploring on-device generative AI, maintained by Google.
+
+The following components from Edge Gallery are used as-is or with minor modifications:
+
+- `LiteRT` model loading and inference infrastructure (`LlmChatModelHelper`)
+- `AudioRecorderPanel` — audio capture UI and PCM recording
+- `ModelManagerViewModel` — model download, initialization, and lifecycle
+- `GalleryNavGraph` — navigation host structure
+- `HomeScreen` — drawer layout and `SquareDrawerItem` composable
+- Hilt dependency injection setup and `CustomTask` multibinding pattern
+- Theme, typography, and color system
+
+All original Google LLC code is licensed under the **Apache License 2.0**. All new code in the `invoiceextraction` package is original work written for this submission.
+
+> **Original repository:** https://github.com/google-ai-edge/gallery  
+> **License:** Apache 2.0 — see [LICENSE](LICENSE)
+
+---
+
+## License
 
 Licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
 
-## 🔗 Useful Links
+---
 
-*   [**Project Wiki (Detailed Guides)**](https://github.com/google-ai-edge/gallery/wiki)
-*   [Hugging Face LiteRT Community](https://huggingface.co/litert-community)
-*   [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM)
-*   [Google AI Edge Documentation](https://ai.google.dev/edge)
+## Links
+
+- [Google AI Edge Gallery](https://github.com/google-ai-edge/gallery)
+- [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM)
+- [Gemma models](https://ai.google.dev/gemma)
+- [Google AI Edge documentation](https://ai.google.dev/edge)
+- [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
