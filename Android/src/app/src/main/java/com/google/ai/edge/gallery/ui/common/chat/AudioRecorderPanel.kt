@@ -248,6 +248,10 @@ private suspend fun startRecording(
   // The function will only return when the recording is done (when stopRecording is called).
   coroutineScope {
     launch(Dispatchers.IO) {
+      if (recorder.state != AudioRecord.STATE_INITIALIZED) {
+        Log.e(TAG, "AudioRecord not initialized — RECORD_AUDIO permission likely missing.")
+        return@launch
+      }
       recorder.startRecording()
 
       val startMs = System.currentTimeMillis()
