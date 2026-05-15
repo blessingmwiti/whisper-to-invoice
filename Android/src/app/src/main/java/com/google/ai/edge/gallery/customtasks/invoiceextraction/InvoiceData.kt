@@ -16,7 +16,10 @@ data class InvoiceData(
   val date: String,
   val items: List<InvoiceLineItem>,
   val subtotal: Double,
-  val tax: Double,
+  /** Tax rate as a percentage, e.g. 16.0 = 16%. */
+  val taxPercent: Double = 0.0,
+  /** Computed tax amount = subtotal * taxPercent / 100. Stored for PDF/serialisation. */
+  val tax: Double = 0.0,
   val total: Double,
   val currency: String = "KES",
   val notes: String = "",
@@ -25,12 +28,12 @@ data class InvoiceData(
     fun today(): String =
       SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-    /** Fallback invoice used when Gemma returns unstructured text. */
     fun empty() = InvoiceData(
       clientName = "",
       date = today(),
       items = emptyList(),
       subtotal = 0.0,
+      taxPercent = 0.0,
       tax = 0.0,
       total = 0.0,
     )

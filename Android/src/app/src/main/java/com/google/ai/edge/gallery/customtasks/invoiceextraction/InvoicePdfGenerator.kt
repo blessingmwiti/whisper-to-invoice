@@ -193,7 +193,12 @@ class InvoicePdfGenerator(private val context: Context) {
     drawTotalRow(canvas, y, "Subtotal", invoice.currency, invoice.subtotal)
     y += 16f
     if (invoice.tax > 0) {
-      drawTotalRow(canvas, y, "Tax", invoice.currency, invoice.tax)
+      val taxLabel = if (invoice.taxPercent > 0) {
+        val pctStr = if (invoice.taxPercent == invoice.taxPercent.toLong().toDouble())
+          invoice.taxPercent.toLong().toString() else "%.2f".format(invoice.taxPercent)
+        "Tax ($pctStr%)"
+      } else "Tax"
+      drawTotalRow(canvas, y, taxLabel, invoice.currency, invoice.tax)
       y += 16f
       drawHLine(canvas, y, width = 0.5f, color = Color.parseColor("#DDDDDD"))
       y += 8f

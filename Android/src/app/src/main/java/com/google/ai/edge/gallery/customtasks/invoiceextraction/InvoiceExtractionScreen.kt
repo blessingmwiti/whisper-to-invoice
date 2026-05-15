@@ -91,7 +91,7 @@ fun InvoiceExtractionScreen(
           onItemChanged = { idx, item -> viewModel.updateItem(idx, item) },
           onItemRemoved = { idx -> viewModel.removeItem(idx) },
           onAddItem = { viewModel.addItem() },
-          onTaxChanged = { viewModel.updateTax(it) },
+          onTaxPercentChanged = { viewModel.updateTaxPercent(it) },
           onSave = { viewModel.saveAndGeneratePdf() },
           onReset = { viewModel.reset() },
           isSaving = false,
@@ -110,7 +110,7 @@ fun InvoiceExtractionScreen(
           onItemChanged = { idx, item -> viewModel.updateItem(idx, item) },
           onItemRemoved = { idx -> viewModel.removeItem(idx) },
           onAddItem = { viewModel.addItem() },
-          onTaxChanged = { viewModel.updateTax(it) },
+          onTaxPercentChanged = { viewModel.updateTaxPercent(it) },
           onSave = { viewModel.saveAndGeneratePdf() },
           onReset = { viewModel.reset() },
           isSaving = false,
@@ -259,12 +259,12 @@ private fun InvoiceResultContent(
   onItemChanged: (Int, InvoiceLineItem) -> Unit,
   onItemRemoved: (Int) -> Unit,
   onAddItem: () -> Unit,
-  onTaxChanged: (Double) -> Unit,
   onSave: () -> Unit,
   onReset: () -> Unit,
   isSaving: Boolean,
   pdfReady: Boolean = false,
   onShare: (() -> Unit)? = null,
+  onTaxPercentChanged: (Double) -> Unit = {},
 ) {
   Column(
     modifier = Modifier
@@ -380,21 +380,37 @@ private fun InvoiceResultContent(
     ) {
       Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         TotalRow("Subtotal", invoice.currency, invoice.subtotal)
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Text(
-            "Tax",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f),
-          )
+
+        // Tax — percentage input + computed amount shown separately
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+          Column(modifier = Modifier.weight(1f)) {
+            Text("Tax", style = MaterialTheme.typography.bodyMedium)
+            if (invoice.tax > 0.0) {
+              Text(
+                text = "${invoice.currency} ${"%,.2f".format(invoice.tax)}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+              )
+            }
+          }
           OutlinedTextField(
-            value = if (invoice.tax == 0.0) "" else invoice.tax.toString(),
-            onValueChange = { onTaxChanged(it.toDoubleOrNull() ?: 0.0) },
-            label = { Text(invoice.currency) },
-            modifier = Modifier.width(120.dp),
+            value = if (invoice.taxPercent == 0.0) "" else {
+              val pct = invoice.taxPercent
+              if (pct == pct.toLong().toDouble()) pct.toLong().toString() else "%.2f".format(pct)
+            },
+            onValueChange = { onTaxPercentChanged(it.toDoubleOrNull() ?: 0.0) },
+            label = { Text("%") },
+            placeholder = { Text("0") },
+            modifier = Modifier.width(100.dp),
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            suffix = { Text("%") },
           )
         }
+
         HorizontalDivider()
         TotalRowBold("TOTAL", invoice.currency, invoice.total)
       }

@@ -136,8 +136,12 @@ class InvoiceExtractionViewModel @Inject constructor(
     }
   }
 
-  fun updateTax(tax: Double) {
-    mutateInvoice { inv -> inv.copy(tax = tax, total = inv.subtotal + tax) }
+  /** [percent] is a rate like 16.0 meaning 16%. Recomputes tax amount and total. */
+  fun updateTaxPercent(percent: Double) {
+    mutateInvoice { inv ->
+      val taxAmount = inv.subtotal * percent / 100.0
+      inv.copy(taxPercent = percent, tax = taxAmount, total = inv.subtotal + taxAmount)
+    }
   }
 
   private fun mutateInvoice(transform: (InvoiceData) -> InvoiceData) {
@@ -258,6 +262,10 @@ class InvoiceExtractionViewModel @Inject constructor(
 
     return try {
       val dto = gson.fromJson(cleaned, InvoiceDto::class.java)
+      val subtotal = dto.subtotal ?: 0.0
+      val taxAmount = dto.tax ?: 0.0
+      // Convert Gemma's flat tax amount → percentage so the UI shows a rate.
+      val taxPercent = if (subtotal > 0.0) (taxAmount / subtotal * 100.0) else 0.0
       InvoiceData(
         clientName = dto.client_name ?: "",
         date = dto.date ?: today,
@@ -269,9 +277,10 @@ class InvoiceExtractionViewModel @Inject constructor(
             total = item.total ?: ((item.qty ?: 1.0) * (item.unit_price ?: 0.0)),
           )
         } ?: emptyList(),
-        subtotal = dto.subtotal ?: 0.0,
-        tax = dto.tax ?: 0.0,
-        total = dto.total ?: 0.0,
+        subtotal = subtotal,
+        taxPercent = taxPercent,
+        tax = taxAmount,
+        total = dto.total ?: (subtotal + taxAmount),
         currency = dto.currency ?: "KES",
         notes = dto.notes ?: "",
       )
