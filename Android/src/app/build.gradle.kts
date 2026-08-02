@@ -28,14 +28,22 @@ plugins {
   kotlin("kapt")
 }
 
+import java.util.Properties
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
+
 android {
   namespace = "com.google.ai.edge.gallery"
-  compileSdk = 35
+  compileSdk = 37
 
   defaultConfig {
     applicationId = "com.whispertoinvoice.app"
     minSdk = 31
-    targetSdk = 35
+    targetSdk = 37
     versionCode = 1
     versionName = "1.0.0"
 
@@ -49,11 +57,22 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  signingConfigs {
+    create("release") {
+      if (keystorePropertiesFile.exists()) {
+        keyAlias = keystoreProperties["keyAlias"] as String
+        keyPassword = keystoreProperties["keyPassword"] as String
+        storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
+        storePassword = keystoreProperties["storePassword"] as String
+      }
+    }
+  }
+
   buildTypes {
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      signingConfig = signingConfigs.getByName("debug")
+      signingConfig = signingConfigs.getByName("release")
     }
   }
   compileOptions {
