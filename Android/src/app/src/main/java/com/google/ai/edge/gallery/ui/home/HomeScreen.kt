@@ -116,7 +116,6 @@ import com.google.ai.edge.gallery.GalleryTopAppBar
 import com.google.ai.edge.gallery.R
 import com.google.ai.edge.gallery.data.AppBarAction
 import com.google.ai.edge.gallery.data.AppBarActionType
-import com.google.ai.edge.gallery.data.BuiltInTaskId
 import com.google.ai.edge.gallery.data.Category
 import com.google.ai.edge.gallery.data.CategoryInfo
 import com.google.ai.edge.gallery.data.Task
@@ -169,6 +168,8 @@ fun HomeScreen(
   gm4: Boolean = false,
   onBusinessProfileClicked: () -> Unit = {},
   onInvoiceListClicked: () -> Unit = {},
+  onAboutClicked: () -> Unit = {},
+  onPrivacyPolicyClicked: () -> Unit = {},
 ) {
   val uiState by modelManagerViewModel.uiState.collectAsState()
   var showSettingsDialog by remember { mutableStateOf(false) }
@@ -559,6 +560,14 @@ fun HomeScreen(
       curThemeOverride = modelManagerViewModel.readThemeOverride(),
       modelManagerViewModel = modelManagerViewModel,
       onDismissed = { showSettingsDialog = false },
+      onOpenAbout = {
+        showSettingsDialog = false
+        onAboutClicked()
+      },
+      onOpenPrivacyPolicy = {
+        showSettingsDialog = false
+        onPrivacyPolicyClicked()
+      },
     )
   }
 
@@ -879,51 +888,7 @@ private fun TaskList(
     initialAnimationDone = true
   }
 
-  // The highlighted tiles at the top.
-  if (gm4) {
-    Column(
-      verticalArrangement = Arrangement.spacedBy(10.dp),
-      modifier =
-        Modifier.padding(horizontal = 24.dp).graphicsLayer {
-          alpha = progress
-          translationY = (CONTENT_COMPOSABLES_OFFSET_Y.dp * (1 - progress)).toPx()
-        },
-    ) {
-      val chatToDescription =
-        mapOf(
-          BuiltInTaskId.LLM_CHAT to "Chat with the latest Gemma 4 model today",
-          // use "\u00a0" to make sure the word before and after it should always be together when
-          // wrapping lines.
-          BuiltInTaskId.LLM_AGENT_CHAT to "Have Gemma 4 complete agentic tasks for\u00A0you",
-        )
-      for (task in
-        listOf(
-          modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_CHAT)!!,
-          modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_AGENT_CHAT)!!,
-        )) {
-        TaskCard(
-          task = task,
-          index = 0,
-          animate = !initialAnimationDone && enableAnimation,
-          onClick = { navigateToTaskScreen(task) },
-          modifier = Modifier.fillMaxWidth(),
-          description = chatToDescription[task.id]!!,
-        )
-      }
-
-      Text(
-        text = "Explore other use cases",
-        style =
-          MaterialTheme.typography.headlineSmall.copy(
-            fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
-            lineHeight = 24.sp,
-          ),
-        color = MaterialTheme.colorScheme.onSurface,
-        modifier = Modifier.padding(top = 22.dp, bottom = 16.dp),
-      )
-    }
-  }
+  // Legacy Gallery LLM promo tiles removed — invoice-only product.
 
   HorizontalPager(
     state = pagerState,

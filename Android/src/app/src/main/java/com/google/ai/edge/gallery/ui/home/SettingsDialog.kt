@@ -70,6 +70,8 @@ fun SettingsDialog(
   curThemeOverride: Theme,
   modelManagerViewModel: ModelManagerViewModel,
   onDismissed: () -> Unit,
+  onOpenAbout: () -> Unit,
+  onOpenPrivacyPolicy: () -> Unit,
 ) {
   var selectedTheme by remember { mutableStateOf(curThemeOverride) }
   val interactionSource = remember { MutableInteractionSource() }
@@ -173,7 +175,7 @@ fun SettingsDialog(
             }
           }
 
-          // Tos
+          // About, privacy, and legal links.
           Column(modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}) {
             Text(
               stringResource(R.string.settings_dialog_tos_title),
@@ -181,6 +183,12 @@ fun SettingsDialog(
             )
             OutlinedButton(onClick = { showTos = true }) {
               Text(stringResource(R.string.settings_dialog_view_app_terms_of_service))
+            }
+            OutlinedButton(onClick = onOpenPrivacyPolicy) {
+              Text(stringResource(R.string.settings_dialog_privacy_policy))
+            }
+            OutlinedButton(onClick = onOpenAbout) {
+              Text(stringResource(R.string.settings_dialog_about))
             }
             ClickableLink(
               url = "https://ai.google.dev/gemma/terms",

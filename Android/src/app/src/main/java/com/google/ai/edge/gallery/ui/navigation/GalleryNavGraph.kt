@@ -75,6 +75,8 @@ import com.google.ai.edge.gallery.ui.common.chat.ModelDownloadStatusInfoPanel
 import com.google.ai.edge.gallery.customtasks.invoiceextraction.BusinessProfileScreen
 import com.google.ai.edge.gallery.customtasks.invoiceextraction.InvoiceListScreen
 import com.google.ai.edge.gallery.ui.home.HomeScreen
+import com.google.ai.edge.gallery.ui.legal.AboutScreen
+import com.google.ai.edge.gallery.ui.legal.PrivacyPolicyScreen
 import com.google.ai.edge.gallery.ui.modelmanager.GlobalModelManager
 import com.google.ai.edge.gallery.ui.modelmanager.ModelInitializationStatusType
 import com.google.ai.edge.gallery.ui.modelmanager.ModelManager
@@ -90,6 +92,8 @@ private const val ROUTE_MODEL = "route_model"
 private const val ROUTE_MODEL_MANAGER = "model_manager"
 private const val ROUTE_BUSINESS_PROFILE = "business_profile"
 private const val ROUTE_INVOICE_LIST = "invoice_list"
+private const val ROUTE_ABOUT = "about"
+private const val ROUTE_PRIVACY_POLICY = "privacy_policy"
 private const val ENTER_ANIMATION_DURATION_MS = 500
 private val ENTER_ANIMATION_EASING = EaseOutExpo
 private const val ENTER_ANIMATION_DELAY_MS = 100
@@ -194,6 +198,8 @@ fun GalleryNavHost(
         onModelsClicked = { navController.navigate(ROUTE_MODEL_MANAGER) },
         onBusinessProfileClicked = { navController.navigate(ROUTE_BUSINESS_PROFILE) },
         onInvoiceListClicked = { navController.navigate(ROUTE_INVOICE_LIST) },
+        onAboutClicked = { navController.navigate(ROUTE_ABOUT) },
+        onPrivacyPolicyClicked = { navController.navigate(ROUTE_PRIVACY_POLICY) },
         gm4 = false,
       )
     }
@@ -334,6 +340,22 @@ fun GalleryNavHost(
       exitTransition = { slideExit() },
     ) {
       InvoiceListScreen(onNavigateUp = { navController.navigateUp() })
+    }
+
+    composable(
+      route = ROUTE_ABOUT,
+      enterTransition = { slideEnter() },
+      exitTransition = { slideExit() },
+    ) {
+      AboutScreen(onNavigateUp = { navController.navigateUp() })
+    }
+
+    composable(
+      route = ROUTE_PRIVACY_POLICY,
+      enterTransition = { slideEnter() },
+      exitTransition = { slideExit() },
+    ) {
+      PrivacyPolicyScreen(onNavigateUp = { navController.navigateUp() })
     }
 
     // Global model manager page.

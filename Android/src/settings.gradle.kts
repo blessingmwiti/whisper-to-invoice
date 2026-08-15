@@ -47,6 +47,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "AI Edge Gallery"
+rootProject.name = "Whisper to Invoice"
 
 include(":app")

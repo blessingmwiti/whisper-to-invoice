@@ -44,7 +44,7 @@ android {
     applicationId = "com.whispertoinvoice.app"
     minSdk = 31
     targetSdk = 37
-    versionCode = 1
+    versionCode = 2
     versionName = "1.0.0"
 
     // Needed for HuggingFace auth workflows.
@@ -125,10 +125,8 @@ dependencies {
   implementation(libs.hilt.android)
   implementation(libs.hilt.navigation.compose)
   implementation(libs.play.services.oss.licenses)
-  implementation(platform(libs.firebase.bom))
-  implementation(libs.firebase.analytics)
-  implementation(libs.firebase.messaging)
   implementation(libs.androidx.exifinterface)
+  implementation(libs.androidx.documentfile)
   implementation(libs.moshi.kotlin)
   kapt(libs.hilt.android.compiler)
   testImplementation(libs.junit)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.google.ai.edge.gallery.R
+import com.google.ai.edge.gallery.legal.LegalConstants
 import com.google.ai.edge.gallery.ui.common.MarkdownText
 
-/** A composable for Terms of Service dialog, shown once when app is launched. */
+/** Terms of Service dialog shown once when the app is launched. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTosDialog(onTosAccepted: () -> Unit, viewingMode: Boolean = false) {
@@ -51,7 +52,6 @@ fun AppTosDialog(onTosAccepted: () -> Unit, viewingMode: Boolean = false) {
   ) {
     Card(shape = RoundedCornerShape(28.dp)) {
       Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-        // Title.
         val titleColor = MaterialTheme.colorScheme.onSurface
         BasicText(
           stringResource(R.string.tos_dialog_title_app),
@@ -64,21 +64,24 @@ fun AppTosDialog(onTosAccepted: () -> Unit, viewingMode: Boolean = false) {
         )
 
         Column(modifier = Modifier.verticalScroll(rememberScrollState()).weight(1f, fill = false)) {
-          // Short content.
           MarkdownText(
-            "By using this app, you agree to the " +
-              "[Google Terms of Service](https://policies.google.com/terms?hl=en-US).\n\n" +
-              "To learn what information we collect and why, how we use it, " +
-              "and how to review and update it, please review the " +
-              "[Google Privacy Policy](https://policies.google.com/privacy?hl=en-US).\n\n" +
-              "Your use of each model is subject to the applicable model license terms.",
+            text = stringResource(R.string.tos_dialog_body),
             smallFontSize = true,
             textColor = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 16.dp),
           )
+          MarkdownText(
+            text =
+              stringResource(
+                R.string.tos_dialog_gemma_notice,
+                LegalConstants.GEMMA_TERMS_URL,
+              ),
+            smallFontSize = true,
+            textColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 12.dp),
+          )
         }
 
-        // Accept button.
         Button(
           onClick = onTosAccepted,
           modifier = Modifier.padding(top = 28.dp, bottom = 24.dp).align(Alignment.End),
