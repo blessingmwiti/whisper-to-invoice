@@ -44,8 +44,8 @@ android {
     applicationId = "com.whispertoinvoice.app"
     minSdk = 31
     targetSdk = 37
-    versionCode = 2
-    versionName = "1.0.0"
+    versionCode = 3
+    versionName = "1.0.1"
 
     // Needed for HuggingFace auth workflows.
     // Use the scheme of the "Redirect URLs" in HuggingFace app.
@@ -70,9 +70,18 @@ android {
 
   buildTypes {
     release {
-      isMinifyEnabled = false
+      // R8 shrinks, optimizes and obfuscates the release build.
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      signingConfig = signingConfigs.getByName("release")
+      // Fall back to the debug key when no release keystore is configured, so
+      // that `assembleRelease` still produces an installable APK.
+      signingConfig =
+        if (keystorePropertiesFile.exists()) {
+          signingConfigs.getByName("release")
+        } else {
+          signingConfigs.getByName("debug")
+        }
     }
   }
   compileOptions {

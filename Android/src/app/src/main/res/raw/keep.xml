@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  play-services-oss-licenses loads its content layouts by name through
+  Resources.getIdentifier(..., "layout", ...), so the resource shrinker cannot
+  see the references and removes them. Without this rule OssLicensesActivity /
+  OssLicensesMenuActivity crash with Resources$NotFoundException (resource ID
+  0x0). The empty-state layouts are referenced directly from code and are kept
+  automatically.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@layout/libraries_social_licenses_license,
+        @layout/libraries_social_licenses_license_activity,
+        @layout/libraries_social_licenses_license_menu_activity,
+        @layout/license_menu_activity_loading,
+        @raw/third_party_licenses,
+        @raw/third_party_license_metadata" />
