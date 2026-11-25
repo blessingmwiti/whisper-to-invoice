@@ -1,0 +1,741 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02334DE241B4F3EC38BC9A9A /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 930CF1519AF2868E57034EE3 /* Nunito-Black.ttf */; };
+		02750B34B3AF607CEF3D7DC6 /* InvoiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C2EA9C0762A8A2A981000 /* InvoiceParser.swift */; };
+		084E43251ED18CB9652AF94E /* LiteRTLM in Frameworks */ = {isa = PBXBuildFile; productRef = 8357AAAB1190BAFD08BD3F64 /* LiteRTLM */; };
+		097D3E793D04252939797781 /* InvoiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F171DB7BCB47F7311B7DCB6B /* InvoiceListView.swift */; };
+		0D157E011806AEEDC3643AE2 /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152D6E4F7504A630CDAA9DAD /* Glass.swift */; };
+		0E3DB9E8D595C6A94D1E419D /* InvoiceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E86DB355BE0095E4B5EC4 /* InvoiceData.swift */; };
+		0EB8BF650E7B719F4AEC377C /* InvoiceDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF536FD4A22E87F1FF2898F /* InvoiceDiagnostics.swift */; };
+		104FDE2B6016996AE7D43E30 /* InvoiceServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B96DCB927BC6B0E5B31D97 /* InvoiceServices.swift */; };
+		134E5677CACB988B7D283A06 /* LlmChatModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA8DCCE6B68221A90E7929 /* LlmChatModelHelper.swift */; };
+		135E9E5A7BEA94744CDD7C54 /* ModelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46BCA576F18DADA6F0F64AB /* ModelListView.swift */; };
+		145A33FC116ADE69F010D002 /* ModelPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD25DFF75570F1592D0AF6 /* ModelPageView.swift */; };
+		15DE4ADC92358ED34B1B6624 /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2262BE2BAB7F5806E5C0930 /* ModelManager.swift */; };
+		2064BA21AA70F74E8C0DCE10 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F737D1671A79AC74E6D2D8 /* AppColors.swift */; };
+		2389117CEA6341FD5DD95DB5 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D880EFBD14A378C450ACC50 /* Nunito-SemiBold.ttf */; };
+		257302CFA5507CEFFC8D9969 /* InvoicePdfGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC640DCC3EA40FFC06C07C /* InvoicePdfGenerator.swift */; };
+		27F12054F38EC77D15E96384 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE8CE1888ED13FA7CED2D47 /* Nunito-Bold.ttf */; };
+		2E31D559A0DE93B13F5BE296 /* InvoiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF1EE139672C07A0BAB1BBB /* InvoiceRepository.swift */; };
+		34D932B2106EDADCFAB5A8BE /* AppDirectories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5AD24A74C6B9C69528F0F /* AppDirectories.swift */; };
+		3D153BFCFBA9713725DDDDE4 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A90551C44B081E67E3DB0367 /* Nunito-Regular.ttf */; };
+		439DDF67399C75C995F0B8C0 /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9865C88F2ACF4F75AC1E93 /* SettingsSheet.swift */; };
+		59F65B6606030CCDDD37E21F /* Nunito-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 503EB47E7E8BF9973A1699ED /* Nunito-Light.ttf */; };
+		619770A7A1C9F96E75D5BF6A /* LegalContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A68D9EBD31016541CDBB4E /* LegalContent.swift */; };
+		635CCD2CF6C6AEC3C6156359 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2704F91E69AF7CCBFB51167C /* Nunito-ExtraBold.ttf */; };
+		6DACCD2DA7D99227425791E3 /* InvoiceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5591B32B006B8C2BDE33BC6D /* InvoiceParserTests.swift */; };
+		707646B3F1BD772005E54FB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C94F0F64CEA8E7CBCE841D9 /* Assets.xcassets */; };
+		70DF00E721FEB83F692FED88 /* StorageAndPdfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7DC56145CB8D8898F12DA /* StorageAndPdfTests.swift */; };
+		77E28B4E6C4564AF2D186C12 /* LlmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F46BD755C9844A98ABDF /* LlmModel.swift */; };
+		807C3A3E970854AF84FD98F3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA57E1660BFCE91D357E01 /* HomeView.swift */; };
+		8B632821C58B840CE465F893 /* Nunito-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5A7308C188EC6F608AE750D /* Nunito-Medium.ttf */; };
+		8D7098D54274E0CD9598E5BF /* MarkdownText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89DE4E4C897F9406AD1292D /* MarkdownText.swift */; };
+		8E625E472BF444869236F9AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1429D5EF116D90B0A073240 /* AppDelegate.swift */; };
+		957B4725F72A443FD181DF07 /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2C79CEAFA631BAC62FC73A /* Fields.swift */; };
+		9722637CEF6BB5D22E504A37 /* LegalViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C20679FF281552E90CFB4C4 /* LegalViews.swift */; };
+		A4BDF646645C01C5671F04C4 /* PcmWav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C66FF67A86B1F3B07E9E517 /* PcmWav.swift */; };
+		A5023E3B3CB050F62C46AB4B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A941925DF9D8F64199EAE9 /* AudioRecorder.swift */; };
+		A54F675DF1299E8D70201B62 /* ModelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4057D03DEB44E44F3EC42454 /* ModelItemView.swift */; };
+		ADB66B3F3AD80D4D1D696E17 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5FD6CDD7ADA8DFB9F2D3F8 /* AppTypography.swift */; };
+		B718CEAC19957E8D672BFA0A /* WhisperToInvoiceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434DA7FF72B425F990F62A4 /* WhisperToInvoiceApp.swift */; };
+		B8049A2CB18F832FB3E0317D /* ThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40670D852BCDE51E5A1C0DA /* ThemeSettings.swift */; };
+		BAC190DB189EB2FE5CC877BE /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAF66A62E821F6D55F05D47 /* Formatting.swift */; };
+		BB6A8F43CCAE20AEA5645F1C /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8048DA3B0BFE25EE41A27D82 /* Route.swift */; };
+		C2BB62927EE4908C1C31B4EF /* BusinessProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434407AC12C5045492B9A27C /* BusinessProfile.swift */; };
+		C6BD35789E0F6F8D4FD206B7 /* InvoiceResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495401360118CA628B56B9F2 /* InvoiceResultView.swift */; };
+		D242B61E0B973146AF85C283 /* GlobalModelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7307A0711466148ACDB14F4E /* GlobalModelsView.swift */; };
+		DAAF1390AB9172577985A2A6 /* Nunito-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91145CC01CB942D725A70ADB /* Nunito-ExtraLight.ttf */; };
+		DDB68225385886310F55F2D1 /* InvoiceExtractionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8ADD74DAAFB85B0FE091C0 /* InvoiceExtractionViewModel.swift */; };
+		DE83B666C7BAFB95F7DD39AF /* ModelDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BD4895D3B532544C212F7 /* ModelDownloader.swift */; };
+		EBE2B3F700B2B610B25C8723 /* InvoiceExtractionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E42F2451E34D793380D7FF /* InvoiceExtractionScreen.swift */; };
+		EF42E6A93CC90BA5D3391A4B /* BusinessProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C19A4709A61AEB6046701EF /* BusinessProfileView.swift */; };
+		F71450CCBB35465B49F87B02 /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555DA6313726A48C96FDD40 /* AppLog.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E2B3797A2379EFCCD1F0193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FD87F1411F496F1536F66EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D78CBA852D02CE94725A94EC;
+			remoteInfo = WhisperToInvoice;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0555DA6313726A48C96FDD40 /* AppLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
+		059573C86AF1C5F77ACE6C46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0AA9F46BD755C9844A98ABDF /* LlmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlmModel.swift; sourceTree = "<group>"; };
+		152D6E4F7504A630CDAA9DAD /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
+		1A2C79CEAFA631BAC62FC73A /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
+		24B96DCB927BC6B0E5B31D97 /* InvoiceServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceServices.swift; sourceTree = "<group>"; };
+		2704F91E69AF7CCBFB51167C /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
+		3434DA7FF72B425F990F62A4 /* WhisperToInvoiceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperToInvoiceApp.swift; sourceTree = "<group>"; };
+		3C19A4709A61AEB6046701EF /* BusinessProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessProfileView.swift; sourceTree = "<group>"; };
+		3C20679FF281552E90CFB4C4 /* LegalViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViews.swift; sourceTree = "<group>"; };
+		3C66FF67A86B1F3B07E9E517 /* PcmWav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcmWav.swift; sourceTree = "<group>"; };
+		3D880EFBD14A378C450ACC50 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
+		4057D03DEB44E44F3EC42454 /* ModelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemView.swift; sourceTree = "<group>"; };
+		40A941925DF9D8F64199EAE9 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		434407AC12C5045492B9A27C /* BusinessProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessProfile.swift; sourceTree = "<group>"; };
+		44A68D9EBD31016541CDBB4E /* LegalContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalContent.swift; sourceTree = "<group>"; };
+		48E42F2451E34D793380D7FF /* InvoiceExtractionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceExtractionScreen.swift; sourceTree = "<group>"; };
+		495401360118CA628B56B9F2 /* InvoiceResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceResultView.swift; sourceTree = "<group>"; };
+		503EB47E7E8BF9973A1699ED /* Nunito-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Light.ttf"; sourceTree = "<group>"; };
+		50F737D1671A79AC74E6D2D8 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		540184A420C64400344AEB2A /* WhisperToInvoice.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhisperToInvoice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5591B32B006B8C2BDE33BC6D /* InvoiceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceParserTests.swift; sourceTree = "<group>"; };
+		5FD53E50AC30567C344EF640 /* WhisperToInvoiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhisperToInvoiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62DC640DCC3EA40FFC06C07C /* InvoicePdfGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePdfGenerator.swift; sourceTree = "<group>"; };
+		652396EB6C32FB0523711699 /* WhisperToInvoice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhisperToInvoice.entitlements; sourceTree = "<group>"; };
+		6DAF66A62E821F6D55F05D47 /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		6F8ADD74DAAFB85B0FE091C0 /* InvoiceExtractionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceExtractionViewModel.swift; sourceTree = "<group>"; };
+		70E5AD24A74C6B9C69528F0F /* AppDirectories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDirectories.swift; sourceTree = "<group>"; };
+		7307A0711466148ACDB14F4E /* GlobalModelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalModelsView.swift; sourceTree = "<group>"; };
+		7C94F0F64CEA8E7CBCE841D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8048DA3B0BFE25EE41A27D82 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		8CE8CE1888ED13FA7CED2D47 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		91145CC01CB942D725A70ADB /* Nunito-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraLight.ttf"; sourceTree = "<group>"; };
+		930CF1519AF2868E57034EE3 /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
+		9F5FD6CDD7ADA8DFB9F2D3F8 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
+		A90551C44B081E67E3DB0367 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
+		AAF536FD4A22E87F1FF2898F /* InvoiceDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceDiagnostics.swift; sourceTree = "<group>"; };
+		B89DE4E4C897F9406AD1292D /* MarkdownText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownText.swift; sourceTree = "<group>"; };
+		BDD7DC56145CB8D8898F12DA /* StorageAndPdfTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndPdfTests.swift; sourceTree = "<group>"; };
+		C46BCA576F18DADA6F0F64AB /* ModelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelListView.swift; sourceTree = "<group>"; };
+		C5A7308C188EC6F608AE750D /* Nunito-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Medium.ttf"; sourceTree = "<group>"; };
+		CBCA57E1660BFCE91D357E01 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CE2E86DB355BE0095E4B5EC4 /* InvoiceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceData.swift; sourceTree = "<group>"; };
+		D1429D5EF116D90B0A073240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D40670D852BCDE51E5A1C0DA /* ThemeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettings.swift; sourceTree = "<group>"; };
+		E2262BE2BAB7F5806E5C0930 /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
+		E39BD4895D3B532544C212F7 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
+		E5DA8DCCE6B68221A90E7929 /* LlmChatModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlmChatModelHelper.swift; sourceTree = "<group>"; };
+		E9DD25DFF75570F1592D0AF6 /* ModelPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPageView.swift; sourceTree = "<group>"; };
+		EEF1EE139672C07A0BAB1BBB /* InvoiceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceRepository.swift; sourceTree = "<group>"; };
+		EF3C2EA9C0762A8A2A981000 /* InvoiceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceParser.swift; sourceTree = "<group>"; };
+		EF9865C88F2ACF4F75AC1E93 /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
+		F171DB7BCB47F7311B7DCB6B /* InvoiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceListView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		78B21FC59EF9A86D7C110863 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				084E43251ED18CB9652AF94E /* LiteRTLM in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		007BFC7A66F8CFF7F4EF0C58 = {
+			isa = PBXGroup;
+			children = (
+				14A1D893D171C0A540FA000B /* WhisperToInvoice */,
+				4470008D8C539F7B2C3FCBFD /* WhisperToInvoiceTests */,
+				8D25A883BCCB636348480358 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14A1D893D171C0A540FA000B /* WhisperToInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				14A1E59139724F7770F5755C /* App */,
+				53B92891963703EA87480E2F /* Audio */,
+				CE0CB831CF39F2AADF26DE9A /* Common */,
+				9644BA65288F6B95C74DE49C /* Data */,
+				BC2C738EA79F19C27F051076 /* Home */,
+				E618008E71D754563615FD3E /* Invoice */,
+				CE142EBFE57078F033A4F7B9 /* Legal */,
+				A08DE4594CE41AD361847F6B /* LLM */,
+				F548B312C9B84CB4F385D97E /* Models */,
+				9420BB8C5C51FDC319310A33 /* Resources */,
+				88D2111672675AD697594BC1 /* Theme */,
+			);
+			path = WhisperToInvoice;
+			sourceTree = "<group>";
+		};
+		14A1E59139724F7770F5755C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D1429D5EF116D90B0A073240 /* AppDelegate.swift */,
+				8048DA3B0BFE25EE41A27D82 /* Route.swift */,
+				3434DA7FF72B425F990F62A4 /* WhisperToInvoiceApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4470008D8C539F7B2C3FCBFD /* WhisperToInvoiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				5591B32B006B8C2BDE33BC6D /* InvoiceParserTests.swift */,
+				BDD7DC56145CB8D8898F12DA /* StorageAndPdfTests.swift */,
+			);
+			path = WhisperToInvoiceTests;
+			sourceTree = "<group>";
+		};
+		53B92891963703EA87480E2F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				40A941925DF9D8F64199EAE9 /* AudioRecorder.swift */,
+				3C66FF67A86B1F3B07E9E517 /* PcmWav.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		88D2111672675AD697594BC1 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				50F737D1671A79AC74E6D2D8 /* AppColors.swift */,
+				9F5FD6CDD7ADA8DFB9F2D3F8 /* AppTypography.swift */,
+				152D6E4F7504A630CDAA9DAD /* Glass.swift */,
+				D40670D852BCDE51E5A1C0DA /* ThemeSettings.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		8D25A883BCCB636348480358 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				540184A420C64400344AEB2A /* WhisperToInvoice.app */,
+				5FD53E50AC30567C344EF640 /* WhisperToInvoiceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9420BB8C5C51FDC319310A33 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7C94F0F64CEA8E7CBCE841D9 /* Assets.xcassets */,
+				059573C86AF1C5F77ACE6C46 /* Info.plist */,
+				652396EB6C32FB0523711699 /* WhisperToInvoice.entitlements */,
+				CEF2E36876CDA8C795B7944F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9644BA65288F6B95C74DE49C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				70E5AD24A74C6B9C69528F0F /* AppDirectories.swift */,
+				434407AC12C5045492B9A27C /* BusinessProfile.swift */,
+				CE2E86DB355BE0095E4B5EC4 /* InvoiceData.swift */,
+				AAF536FD4A22E87F1FF2898F /* InvoiceDiagnostics.swift */,
+				EEF1EE139672C07A0BAB1BBB /* InvoiceRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A08DE4594CE41AD361847F6B /* LLM */ = {
+			isa = PBXGroup;
+			children = (
+				E5DA8DCCE6B68221A90E7929 /* LlmChatModelHelper.swift */,
+				0AA9F46BD755C9844A98ABDF /* LlmModel.swift */,
+				E39BD4895D3B532544C212F7 /* ModelDownloader.swift */,
+				E2262BE2BAB7F5806E5C0930 /* ModelManager.swift */,
+			);
+			path = LLM;
+			sourceTree = "<group>";
+		};
+		BC2C738EA79F19C27F051076 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CBCA57E1660BFCE91D357E01 /* HomeView.swift */,
+				EF9865C88F2ACF4F75AC1E93 /* SettingsSheet.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CE0CB831CF39F2AADF26DE9A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0555DA6313726A48C96FDD40 /* AppLog.swift */,
+				1A2C79CEAFA631BAC62FC73A /* Fields.swift */,
+				6DAF66A62E821F6D55F05D47 /* Formatting.swift */,
+				B89DE4E4C897F9406AD1292D /* MarkdownText.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CE142EBFE57078F033A4F7B9 /* Legal */ = {
+			isa = PBXGroup;
+			children = (
+				44A68D9EBD31016541CDBB4E /* LegalContent.swift */,
+				3C20679FF281552E90CFB4C4 /* LegalViews.swift */,
+			);
+			path = Legal;
+			sourceTree = "<group>";
+		};
+		CEF2E36876CDA8C795B7944F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				930CF1519AF2868E57034EE3 /* Nunito-Black.ttf */,
+				8CE8CE1888ED13FA7CED2D47 /* Nunito-Bold.ttf */,
+				2704F91E69AF7CCBFB51167C /* Nunito-ExtraBold.ttf */,
+				91145CC01CB942D725A70ADB /* Nunito-ExtraLight.ttf */,
+				503EB47E7E8BF9973A1699ED /* Nunito-Light.ttf */,
+				C5A7308C188EC6F608AE750D /* Nunito-Medium.ttf */,
+				A90551C44B081E67E3DB0367 /* Nunito-Regular.ttf */,
+				3D880EFBD14A378C450ACC50 /* Nunito-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E618008E71D754563615FD3E /* Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				3C19A4709A61AEB6046701EF /* BusinessProfileView.swift */,
+				48E42F2451E34D793380D7FF /* InvoiceExtractionScreen.swift */,
+				6F8ADD74DAAFB85B0FE091C0 /* InvoiceExtractionViewModel.swift */,
+				F171DB7BCB47F7311B7DCB6B /* InvoiceListView.swift */,
+				EF3C2EA9C0762A8A2A981000 /* InvoiceParser.swift */,
+				62DC640DCC3EA40FFC06C07C /* InvoicePdfGenerator.swift */,
+				495401360118CA628B56B9F2 /* InvoiceResultView.swift */,
+				24B96DCB927BC6B0E5B31D97 /* InvoiceServices.swift */,
+			);
+			path = Invoice;
+			sourceTree = "<group>";
+		};
+		F548B312C9B84CB4F385D97E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7307A0711466148ACDB14F4E /* GlobalModelsView.swift */,
+				4057D03DEB44E44F3EC42454 /* ModelItemView.swift */,
+				C46BCA576F18DADA6F0F64AB /* ModelListView.swift */,
+				E9DD25DFF75570F1592D0AF6 /* ModelPageView.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5CEAE19E6261FDDD4F2D84E6 /* WhisperToInvoiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D88E58A9C6B995C08E0C5501 /* Build configuration list for PBXNativeTarget "WhisperToInvoiceTests" */;
+			buildPhases = (
+				D636E58D6AC96D06B1ECB181 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C893E46E74238523D3AA4B15 /* PBXTargetDependency */,
+			);
+			name = WhisperToInvoiceTests;
+			packageProductDependencies = (
+			);
+			productName = WhisperToInvoiceTests;
+			productReference = 5FD53E50AC30567C344EF640 /* WhisperToInvoiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D78CBA852D02CE94725A94EC /* WhisperToInvoice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3B27A8D1985F0CEE8945CC2 /* Build configuration list for PBXNativeTarget "WhisperToInvoice" */;
+			buildPhases = (
+				BBD0283408B60ABF60109C36 /* Sources */,
+				D507573D31ED6787A41FE792 /* Resources */,
+				78B21FC59EF9A86D7C110863 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhisperToInvoice;
+			packageProductDependencies = (
+				8357AAAB1190BAFD08BD3F64 /* LiteRTLM */,
+			);
+			productName = WhisperToInvoice;
+			productReference = 540184A420C64400344AEB2A /* WhisperToInvoice.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8FD87F1411F496F1536F66EB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					D78CBA852D02CE94725A94EC = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BB6E17AF61D006D3A6F33663 /* Build configuration list for PBXProject "WhisperToInvoice" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 007BFC7A66F8CFF7F4EF0C58;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F44A8BD9713559F697A89604 /* XCRemoteSwiftPackageReference "LiteRT-LM" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8D25A883BCCB636348480358 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D78CBA852D02CE94725A94EC /* WhisperToInvoice */,
+				5CEAE19E6261FDDD4F2D84E6 /* WhisperToInvoiceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D507573D31ED6787A41FE792 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				707646B3F1BD772005E54FB9 /* Assets.xcassets in Resources */,
+				02334DE241B4F3EC38BC9A9A /* Nunito-Black.ttf in Resources */,
+				27F12054F38EC77D15E96384 /* Nunito-Bold.ttf in Resources */,
+				635CCD2CF6C6AEC3C6156359 /* Nunito-ExtraBold.ttf in Resources */,
+				DAAF1390AB9172577985A2A6 /* Nunito-ExtraLight.ttf in Resources */,
+				59F65B6606030CCDDD37E21F /* Nunito-Light.ttf in Resources */,
+				8B632821C58B840CE465F893 /* Nunito-Medium.ttf in Resources */,
+				3D153BFCFBA9713725DDDDE4 /* Nunito-Regular.ttf in Resources */,
+				2389117CEA6341FD5DD95DB5 /* Nunito-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBD0283408B60ABF60109C36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2064BA21AA70F74E8C0DCE10 /* AppColors.swift in Sources */,
+				8E625E472BF444869236F9AC /* AppDelegate.swift in Sources */,
+				34D932B2106EDADCFAB5A8BE /* AppDirectories.swift in Sources */,
+				F71450CCBB35465B49F87B02 /* AppLog.swift in Sources */,
+				ADB66B3F3AD80D4D1D696E17 /* AppTypography.swift in Sources */,
+				A5023E3B3CB050F62C46AB4B /* AudioRecorder.swift in Sources */,
+				C2BB62927EE4908C1C31B4EF /* BusinessProfile.swift in Sources */,
+				EF42E6A93CC90BA5D3391A4B /* BusinessProfileView.swift in Sources */,
+				957B4725F72A443FD181DF07 /* Fields.swift in Sources */,
+				BAC190DB189EB2FE5CC877BE /* Formatting.swift in Sources */,
+				0D157E011806AEEDC3643AE2 /* Glass.swift in Sources */,
+				D242B61E0B973146AF85C283 /* GlobalModelsView.swift in Sources */,
+				807C3A3E970854AF84FD98F3 /* HomeView.swift in Sources */,
+				0E3DB9E8D595C6A94D1E419D /* InvoiceData.swift in Sources */,
+				0EB8BF650E7B719F4AEC377C /* InvoiceDiagnostics.swift in Sources */,
+				EBE2B3F700B2B610B25C8723 /* InvoiceExtractionScreen.swift in Sources */,
+				DDB68225385886310F55F2D1 /* InvoiceExtractionViewModel.swift in Sources */,
+				097D3E793D04252939797781 /* InvoiceListView.swift in Sources */,
+				02750B34B3AF607CEF3D7DC6 /* InvoiceParser.swift in Sources */,
+				257302CFA5507CEFFC8D9969 /* InvoicePdfGenerator.swift in Sources */,
+				2E31D559A0DE93B13F5BE296 /* InvoiceRepository.swift in Sources */,
+				C6BD35789E0F6F8D4FD206B7 /* InvoiceResultView.swift in Sources */,
+				104FDE2B6016996AE7D43E30 /* InvoiceServices.swift in Sources */,
+				619770A7A1C9F96E75D5BF6A /* LegalContent.swift in Sources */,
+				9722637CEF6BB5D22E504A37 /* LegalViews.swift in Sources */,
+				134E5677CACB988B7D283A06 /* LlmChatModelHelper.swift in Sources */,
+				77E28B4E6C4564AF2D186C12 /* LlmModel.swift in Sources */,
+				8D7098D54274E0CD9598E5BF /* MarkdownText.swift in Sources */,
+				DE83B666C7BAFB95F7DD39AF /* ModelDownloader.swift in Sources */,
+				A54F675DF1299E8D70201B62 /* ModelItemView.swift in Sources */,
+				135E9E5A7BEA94744CDD7C54 /* ModelListView.swift in Sources */,
+				15DE4ADC92358ED34B1B6624 /* ModelManager.swift in Sources */,
+				145A33FC116ADE69F010D002 /* ModelPageView.swift in Sources */,
+				A4BDF646645C01C5671F04C4 /* PcmWav.swift in Sources */,
+				BB6A8F43CCAE20AEA5645F1C /* Route.swift in Sources */,
+				439DDF67399C75C995F0B8C0 /* SettingsSheet.swift in Sources */,
+				B8049A2CB18F832FB3E0317D /* ThemeSettings.swift in Sources */,
+				B718CEAC19957E8D672BFA0A /* WhisperToInvoiceApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D636E58D6AC96D06B1ECB181 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DACCD2DA7D99227425791E3 /* InvoiceParserTests.swift in Sources */,
+				70DF00E721FEB83F692FED88 /* StorageAndPdfTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C893E46E74238523D3AA4B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D78CBA852D02CE94725A94EC /* WhisperToInvoice */;
+			targetProxy = 6E2B3797A2379EFCCD1F0193 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2EBF0648F9055D9D0F4FB882 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.0.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		36CBEBD03B24458E7DCE4B25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.0.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		56AF7F7D7CF4F693998E086C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhisperToInvoice/Resources/WhisperToInvoice.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhisperToInvoice/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whispertoinvoice.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6CBB2A961906CA934610D8D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhisperToInvoice/Resources/WhisperToInvoice.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhisperToInvoice/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whispertoinvoice.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8D2896401D66C11F94C2739A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.whispertoinvoice.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhisperToInvoice.app/WhisperToInvoice";
+			};
+			name = Debug;
+		};
+		F1A10292AF838724EB5ED024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.whispertoinvoice.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhisperToInvoice.app/WhisperToInvoice";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BB6E17AF61D006D3A6F33663 /* Build configuration list for PBXProject "WhisperToInvoice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36CBEBD03B24458E7DCE4B25 /* Debug */,
+				2EBF0648F9055D9D0F4FB882 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3B27A8D1985F0CEE8945CC2 /* Build configuration list for PBXNativeTarget "WhisperToInvoice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56AF7F7D7CF4F693998E086C /* Debug */,
+				6CBB2A961906CA934610D8D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D88E58A9C6B995C08E0C5501 /* Build configuration list for PBXNativeTarget "WhisperToInvoiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D2896401D66C11F94C2739A /* Debug */,
+				F1A10292AF838724EB5ED024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F44A8BD9713559F697A89604 /* XCRemoteSwiftPackageReference "LiteRT-LM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google-ai-edge/LiteRT-LM.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.20.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8357AAAB1190BAFD08BD3F64 /* LiteRTLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F44A8BD9713559F697A89604 /* XCRemoteSwiftPackageReference "LiteRT-LM" */;
+			productName = LiteRTLM;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8FD87F1411F496F1536F66EB /* Project object */;
+}
