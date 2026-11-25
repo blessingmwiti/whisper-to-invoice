@@ -44,8 +44,8 @@ android {
     applicationId = "com.whispertoinvoice.app"
     minSdk = 31
     targetSdk = 37
-    versionCode = 3
-    versionName = "1.0.1"
+    versionCode = 5
+    versionName = "1.0.3"
 
     // Needed for HuggingFace auth workflows.
     // Use the scheme of the "Redirect URLs" in HuggingFace app.

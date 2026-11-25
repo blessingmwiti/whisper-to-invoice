@@ -2,6 +2,7 @@ package com.google.ai.edge.gallery.customtasks.invoiceextraction
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +39,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,9 +56,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.google.ai.edge.gallery.data.Model
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.ui.common.chat.AudioRecorderPanel
+import kotlinx.coroutines.delay
+
+private const val SCREEN_TAG = "InvoiceExtractionScreen"
+private const val HEARTBEAT_INTERVAL_MS = 5_000L
 
 @Composable
 fun InvoiceExtractionScreen(
@@ -146,6 +155,30 @@ private fun IdleContent(task: Task, onAudioRecorded: (ByteArray) -> Unit) {
     contract = ActivityResultContracts.RequestPermission()
   ) { granted -> micPermissionGranted = granted }
 
+  // --- Diagnostics: find out why the app exits while sitting on this screen ---
+  val lifecycleOwner = LocalLifecycleOwner.current
+  DisposableEffect(lifecycleOwner) {
+    Log.i(SCREEN_TAG, "IdleContent entered. micPermissionGranted=$micPermissionGranted")
+    val observer = LifecycleEventObserver { _, event ->
+      Log.i(SCREEN_TAG, "Lifecycle event: $event")
+      InvoiceDiagnostics.logMemory(context, "lifecycle-$event")
+    }
+    lifecycleOwner.lifecycle.addObserver(observer)
+    onDispose {
+      lifecycleOwner.lifecycle.removeObserver(observer)
+      Log.i(SCREEN_TAG, "IdleContent disposed (screen left or app is closing)")
+    }
+  }
+  LaunchedEffect(Unit) {
+    InvoiceDiagnostics.logPreviousExits(context)
+    var elapsedSec = 0
+    while (true) {
+      InvoiceDiagnostics.logMemory(context, "idle-heartbeat t=${elapsedSec}s")
+      delay(HEARTBEAT_INTERVAL_MS)
+      elapsedSec += (HEARTBEAT_INTERVAL_MS / 1000).toInt()
+    }
+  }
+
   Column(
     modifier = Modifier.fillMaxSize().padding(24.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -165,7 +198,7 @@ private fun IdleContent(task: Task, onAudioRecorded: (ByteArray) -> Unit) {
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-      text = "English · Swahili · Mix ya vyote viwili ✓",
+      text = "Any language · Mix langages too ✓",
       style = MaterialTheme.typography.labelSmall,
       color = MaterialTheme.colorScheme.primary,
     )

@@ -1,12 +1,14 @@
 package com.google.ai.edge.gallery.customtasks.invoiceextraction
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Receipt
 import androidx.compose.runtime.Composable
 import com.google.ai.edge.gallery.customtasks.common.CustomTask
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskData
 import com.google.ai.edge.gallery.data.Category
+import com.google.ai.edge.gallery.data.ConfigKeys
 import com.google.ai.edge.gallery.data.Model
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.ui.llmchat.LlmChatModelHelper
@@ -18,6 +20,8 @@ import dagger.multibindings.IntoSet
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 
+private const val TAG = "InvoiceExtractionTask"
+
 const val TASK_ID_INVOICE_EXTRACTION = "invoice_extraction"
 
 class InvoiceExtractionTask @Inject constructor() : CustomTask {
@@ -27,7 +31,7 @@ class InvoiceExtractionTask @Inject constructor() : CustomTask {
     label = "Whisper to Invoice",
     category = Category.LLM,
     icon = Icons.Outlined.Receipt,
-    description = "Speak your sale in English or Swahili — Gemma 4 extracts it into a professional invoice, 100% offline.",
+    description = "Speak your sale in any language — Gemma 4 extracts it into a professional invoice, 100% offline.",
     shortDescription = "Voice → Invoice, offline",
     models = mutableListOf(),
     useThemeColor = true,
@@ -39,12 +43,28 @@ class InvoiceExtractionTask @Inject constructor() : CustomTask {
     model: Model,
     onDone: (String) -> Unit,
   ) {
+    Log.i(
+      TAG,
+      "initializeModelFn: model='${model.name}' accelerator=" +
+        "${model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = "unset")} " +
+        "maxTokens=${model.getIntConfigValue(key = ConfigKeys.MAX_TOKENS, defaultValue = -1)}",
+    )
+    InvoiceDiagnostics.logMemory(context, "before-model-init")
+    val initStartMs = System.currentTimeMillis()
     LlmChatModelHelper.initialize(
       context = context,
       model = model,
       supportImage = false,
       supportAudio = true,  // audio is the whole point
-      onDone = onDone,
+      onDone = { error ->
+        Log.i(
+          TAG,
+          "initializeModelFn done in ${System.currentTimeMillis() - initStartMs}ms " +
+            "error='${error}' instanceNull=${model.instance == null}",
+        )
+        InvoiceDiagnostics.logMemory(context, "after-model-init")
+        onDone(error)
+      },
     )
   }
 

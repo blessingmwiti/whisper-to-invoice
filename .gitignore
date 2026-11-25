@@ -1,2 +1,5 @@
 .DS_Store
 .jdk-21/
+**.pem
+**/.kotlin/
+**.jks

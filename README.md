@@ -41,7 +41,7 @@ The app uses **Gemma 4 E2B** (2 billion parameter, instruction-tuned) running fu
 
 The model receives the audio recording alongside a structured prompt that instructs it to:
 
-- Transcribe the spoken description (English, Swahili, or mixed code-switching)
+- Transcribe the spoken description
 - Extract structured invoice fields: client name, date, line items (description, quantity, unit price), currency, tax, and notes
 - Return a strict JSON object — no prose, no markdown
 
@@ -54,7 +54,7 @@ Gemma 4's multimodal audio capabilities make this possible in a single inference
 ## Features
 
 - **Voice-to-invoice** — speak a sale, get a structured invoice in seconds
-- **Bilingual** — English, Swahili, and code-switched input
+- **Bilingual** — More than one language supported
 - **Fully editable** — correct any field, add/remove line items, set tax as a percentage
 - **Business profile** — your name, address, logo, and payment instructions appear on every invoice
 - **PDF generation** — professional A4 invoice, generated on-device, no libraries required

@@ -61,6 +61,12 @@ class InvoiceExtractionViewModel @Inject constructor(
   // ---------------------------------------------------------------------------
 
   fun extractInvoice(model: Model, audioPcmBytes: ByteArray) {
+    Log.i(
+      TAG,
+      "extractInvoice called: model='${model.name}' pcmBytes=${audioPcmBytes.size} " +
+        "(~${audioPcmBytes.size / (16000 * 2)}s of audio) instanceNull=${model.instance == null}",
+    )
+    InvoiceDiagnostics.logMemory(appContext, "extract-start")
     _uiState.update { it.copy(state = ExtractionState.PROCESSING, error = "", rawResponse = "") }
 
     viewModelScope.launch(Dispatchers.Default) {
@@ -69,7 +75,9 @@ class InvoiceExtractionViewModel @Inject constructor(
         kotlinx.coroutines.delay(200)
         waited += 200
       }
+      if (waited > 0) Log.w(TAG, "Waited ${waited}ms for model.instance; now null=${model.instance == null}")
       if (model.instance == null) {
+        Log.e(TAG, "Model instance still null after ${waited}ms — aborting extraction")
         _uiState.update { it.copy(state = ExtractionState.ERROR, error = "Model not ready. Try again.") }
         return@launch
       }
@@ -78,6 +86,9 @@ class InvoiceExtractionViewModel @Inject constructor(
       val prompt = buildPrompt(today)
       val wavBytes = pcmToWav(audioPcmBytes)
       val accumulated = StringBuilder()
+      val inferenceStartMs = System.currentTimeMillis()
+      Log.i(TAG, "Starting inference: wavBytes=${wavBytes.size} promptChars=${prompt.length}")
+      InvoiceDiagnostics.logMemory(appContext, "inference-start")
 
       LlmChatModelHelper.runInference(
         model = model,
@@ -86,6 +97,12 @@ class InvoiceExtractionViewModel @Inject constructor(
         resultListener = { partial, done, _ ->
           accumulated.append(partial)
           if (done) {
+            Log.i(
+              TAG,
+              "Inference done in ${System.currentTimeMillis() - inferenceStartMs}ms, " +
+                "responseChars=${accumulated.length}",
+            )
+            InvoiceDiagnostics.logMemory(appContext, "inference-done")
             val raw = accumulated.toString().trim()
             Log.d(TAG, "Gemma raw: $raw")
             val invoice = parseInvoice(raw, today)
@@ -96,7 +113,8 @@ class InvoiceExtractionViewModel @Inject constructor(
         },
         cleanUpListener = {},
         onError = { err ->
-          Log.e(TAG, "Inference error: $err")
+          Log.e(TAG, "Inference error after ${System.currentTimeMillis() - inferenceStartMs}ms: $err")
+          InvoiceDiagnostics.logMemory(appContext, "inference-error")
           _uiState.update { it.copy(state = ExtractionState.ERROR, error = err) }
         },
       )
@@ -223,7 +241,7 @@ class InvoiceExtractionViewModel @Inject constructor(
   // ---------------------------------------------------------------------------
 
   private fun buildPrompt(today: String): String = """
-    Listen carefully to the audio recording. The speaker is describing a sale in English, Swahili, or a mix of both.
+    Listen carefully to the audio recording. The speaker is describing a sale in their own language.
 
     Extract the invoice details and return ONLY a valid JSON object — no explanation, no markdown, no code fences. Just the raw JSON.
 
