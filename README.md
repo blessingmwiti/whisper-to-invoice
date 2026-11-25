@@ -4,8 +4,6 @@
 [![Gemma 4](https://img.shields.io/badge/Powered%20by-Gemma%204-blue)](https://ai.google.dev/gemma)
 [![Offline](https://img.shields.io/badge/Works-100%25%20Offline-green)](https://github.com/google-ai-edge/gallery)
 
-> **Gemma 4 Good Hackathon** — Kaggle × Google DeepMind submission
-
 **Speak your sale. Get a professional invoice. No internet required.**
 
 Whisper to Invoice is a fully offline Android app for small business owners anywhere in the world. Describe a sale out loud and Gemma 4 transcribes it, extracts the line items, quantities, prices, client name, and date, then generates a professional PDF invoice you can share instantly via WhatsApp or any other channel.
@@ -34,10 +32,6 @@ Whisper to Invoice removes every barrier:
 3. **Share** — generate a PDF and send via WhatsApp in one tap
 
 Everything runs on the device. Financial data never leaves the phone.
-
-### Built for Kenya too
-
-In Kenya and across East Africa, business conversations naturally blend English and Swahili — a style called *sheng* or code-switching. The app handles this natively: a market vendor in Mombasa, a boda boda operator in Kisumu, or a trader at Gikomba can speak exactly as they would to a customer — mixing Swahili number words (*moja, mbili, tatu…*), units, and item names — and Gemma 4 understands it all. No translation step, no special mode.
 
 ---
 
@@ -71,22 +65,6 @@ Gemma 4's multimodal audio capabilities make this possible in a single inference
 
 ---
 
-## Technical Stack
-
-| Layer | Technology |
-|---|---|
-| Language | Kotlin |
-| UI | Jetpack Compose |
-| On-device ML | Google AI Edge SDK + LiteRT (MediaPipe LLM Inference) |
-| Model | Gemma 4 E2B — downloaded from HuggingFace on first launch |
-| Audio recording | Android AudioRecord API |
-| PDF generation | Android PdfDocument API (Canvas-based, zero external deps) |
-| Persistence | JSON files (invoices) + SharedPreferences (business profile) |
-| Sharing | Android FileProvider + Intent.ACTION_SEND |
-| DI | Hilt |
-
----
-
 ## Getting Started
 
 ### Requirements
@@ -113,40 +91,6 @@ On first launch the app will prompt you to download Gemma 4 E2B (~2.6 GB). After
 
 ---
 
-## Project Structure
-
-```
-Android/src/app/src/main/java/com/google/ai/edge/gallery/
-├── customtasks/
-│   └── invoiceextraction/
-│       ├── InvoiceExtractionTaskModule.kt   # Task registration (Hilt)
-│       ├── InvoiceExtractionScreen.kt       # Main UI (record → review → share)
-│       ├── InvoiceExtractionViewModel.kt    # Audio → Gemma 4 → JSON → PDF
-│       ├── InvoiceData.kt                   # Data models
-│       ├── InvoiceRepository.kt             # Local JSON persistence
-│       ├── InvoicePdfGenerator.kt           # On-device PDF via PdfDocument
-│       ├── InvoiceListScreen.kt             # Invoice history
-│       ├── BusinessProfile.kt               # Business profile model + repo
-│       └── BusinessProfileScreen.kt         # Profile settings UI
-└── ui/
-    ├── home/HomeScreen.kt                   # App home + navigation drawer
-    └── navigation/GalleryNavGraph.kt        # Nav graph (routes + transitions)
-```
-
----
-
-## Design Decisions
-
-**Why no Whisper?** The original concept used Whisper for transcription. Gemma 4's native audio support means a single model handles transcription, comprehension, and structuring — simpler architecture, one fewer download, same offline guarantee.
-
-**Why PdfDocument instead of iText?** Android's built-in `PdfDocument` API covers everything needed for a clean A4 invoice with zero extra dependencies. Smaller APK, no licence concerns, no network calls.
-
-**Why JSON files instead of Room?** For the hackathon scope, flat JSON files in internal storage are sufficient, easier to inspect during development, and have zero schema migration overhead.
-
-**Why SharedPreferences for business profile?** The profile is a small, flat set of strings. SharedPreferences is the right tool — no over-engineering.
-
----
-
 ## Attribution
 
 This project is a fork of [**Google AI Edge Gallery**](https://github.com/google-ai-edge/gallery) — an open-source Android app for exploring on-device generative AI, maintained by Google.
@@ -161,7 +105,7 @@ The following components from Edge Gallery are used as-is or with minor modifica
 - Hilt dependency injection setup and `CustomTask` multibinding pattern
 - Theme, typography, and color system
 
-All original Google LLC code is licensed under the **Apache License 2.0**. All new code in the `invoiceextraction` package is original work written for this submission.
+All original Google LLC code is licensed under the **Apache License 2.0**. All new code in the `invoiceextraction` package is original work.
 
 > **Original repository:** https://github.com/google-ai-edge/gallery  
 > **License:** Apache 2.0 — see [LICENSE](LICENSE)
@@ -180,4 +124,3 @@ Licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file 
 - [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM)
 - [Gemma models](https://ai.google.dev/gemma)
 - [Google AI Edge documentation](https://ai.google.dev/edge)
-- [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
