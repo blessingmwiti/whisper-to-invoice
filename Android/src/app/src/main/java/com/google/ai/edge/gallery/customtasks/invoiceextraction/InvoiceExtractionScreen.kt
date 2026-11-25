@@ -198,7 +198,7 @@ private fun IdleContent(task: Task, onAudioRecorded: (ByteArray) -> Unit) {
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-      text = "Any language · Mix langages too ✓",
+      text = "Any language · Mix languages too ✓",
       style = MaterialTheme.typography.labelSmall,
       color = MaterialTheme.colorScheme.primary,
     )
