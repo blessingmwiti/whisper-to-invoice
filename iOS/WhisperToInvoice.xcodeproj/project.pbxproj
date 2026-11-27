@@ -24,6 +24,7 @@
 		257302CFA5507CEFFC8D9969 /* InvoicePdfGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC640DCC3EA40FFC06C07C /* InvoicePdfGenerator.swift */; };
 		27F12054F38EC77D15E96384 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE8CE1888ED13FA7CED2D47 /* Nunito-Bold.ttf */; };
 		2E31D559A0DE93B13F5BE296 /* InvoiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF1EE139672C07A0BAB1BBB /* InvoiceRepository.swift */; };
+		32873C067111783A66694C9D /* whisper.icon in Resources */ = {isa = PBXBuildFile; fileRef = 086CFFFD3AAC4CDD29A23D73 /* whisper.icon */; };
 		34D932B2106EDADCFAB5A8BE /* AppDirectories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5AD24A74C6B9C69528F0F /* AppDirectories.swift */; };
 		3D153BFCFBA9713725DDDDE4 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A90551C44B081E67E3DB0367 /* Nunito-Regular.ttf */; };
 		439DDF67399C75C995F0B8C0 /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9865C88F2ACF4F75AC1E93 /* SettingsSheet.swift */; };
@@ -72,6 +73,7 @@
 /* Begin PBXFileReference section */
 		0555DA6313726A48C96FDD40 /* AppLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
 		059573C86AF1C5F77ACE6C46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		086CFFFD3AAC4CDD29A23D73 /* whisper.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = whisper.icon; sourceTree = "<group>"; };
 		0AA9F46BD755C9844A98ABDF /* LlmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlmModel.swift; sourceTree = "<group>"; };
 		152D6E4F7504A630CDAA9DAD /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 		1A2C79CEAFA631BAC62FC73A /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				7C94F0F64CEA8E7CBCE841D9 /* Assets.xcassets */,
 				059573C86AF1C5F77ACE6C46 /* Info.plist */,
+				086CFFFD3AAC4CDD29A23D73 /* whisper.icon */,
 				652396EB6C32FB0523711699 /* WhisperToInvoice.entitlements */,
 				CEF2E36876CDA8C795B7944F /* Fonts */,
 			);
@@ -366,7 +369,11 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					5CEAE19E6261FDDD4F2D84E6 = {
+						DevelopmentTeam = Y5A7RP428X;
+					};
 					D78CBA852D02CE94725A94EC = {
+						DevelopmentTeam = Y5A7RP428X;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -408,6 +415,7 @@
 				8B632821C58B840CE465F893 /* Nunito-Medium.ttf in Resources */,
 				3D153BFCFBA9713725DDDDE4 /* Nunito-Regular.ttf in Resources */,
 				2389117CEA6341FD5DD95DB5 /* Nunito-SemiBold.ttf in Resources */,
+				32873C067111783A66694C9D /* whisper.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +523,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Y5A7RP428X;
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -580,6 +589,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Y5A7RP428X;
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -619,8 +629,9 @@
 		56AF7F7D7CF4F693998E086C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = whisper;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WhisperToInvoice/Resources/WhisperToInvoice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -637,8 +648,9 @@
 		6CBB2A961906CA934610D8D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = whisper;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WhisperToInvoice/Resources/WhisperToInvoice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

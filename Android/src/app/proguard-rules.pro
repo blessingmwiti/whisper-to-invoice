@@ -49,6 +49,16 @@
 -keep class com.google.ai.edge.litertlm.BenchmarkInfo { *; }
 -keep class com.google.ai.edge.litertlm.LiteRtLmJniException { *; }
 
+# nativeCreateConversation() receives a SamplerConfig and reads it from C++ with
+# GetMethodID() (getTopK(), getTopP(), getTemperature()...). R8 renamed the fields
+# of SamplerConfig (topK -> a, ...) and removed its getters, so the lookup returned
+# null and the JNI layer aborted the process:
+#   "JNI DETECTED ERROR IN APPLICATION: mid == null in call to CallIntMethodV
+#    from LiteRtLmJni.nativeCreateConversation(...)"
+# The native library can reach any class of this package by name, so the whole
+# package is kept (members included) instead of only the classes listed above.
+-keep class com.google.ai.edge.litertlm.** { *; }
+
 
 # ----------------------------------------------------------------------------
 # LiteRT-LM - function calling (kotlin-reflect)
