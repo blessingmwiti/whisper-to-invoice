@@ -169,6 +169,37 @@ struct StatusIcon: View {
     }
 }
 
+// MARK: - Progress bar
+
+/// A rounded download progress bar: dim track, accent fill that animates smoothly and is
+/// always at least a small sliver wide once the download has started.
+struct DownloadProgressBar: View {
+    let progress: Double
+    let tint: Color
+
+    private let height: CGFloat = 8
+
+    var body: some View {
+        GeometryReader { proxy in
+            let fraction = min(max(progress, 0), 1)
+            let fillWidth = fraction > 0 ? max(height, proxy.size.width * fraction) : 0
+            ZStack(alignment: .leading) {
+                Capsule().fill(AppPalette.onSurface.opacity(0.18))
+                Capsule()
+                    .fill(LinearGradient(colors: [tint.opacity(0.7), tint], startPoint: .leading, endPoint: .trailing))
+                    .frame(width: fillWidth)
+            }
+            .frame(height: height)
+            .frame(maxHeight: .infinity, alignment: .center)
+            .animation(.smooth(duration: 0.4), value: fraction)
+        }
+        .frame(height: height)
+        .accessibilityElement()
+        .accessibilityLabel("Download progress")
+        .accessibilityValue("\(Int(min(max(progress, 0), 1) * 100)) percent")
+    }
+}
+
 // MARK: - Download / try-it button
 
 /// Handles "Download", the in-progress capsule and "Try it" (Android: `DownloadAndTryButton`).
@@ -270,15 +301,12 @@ struct DownloadAndTryButton: View {
                     .foregroundStyle(AppPalette.onSurface)
                     .frame(maxWidth: .infinity)
             } else {
-                Text("\(Int(progress * 100))%")
+                Text(percentLabel)
                     .appText(.bodyMedium)
                     .monospacedDigit()
                     .foregroundStyle(AppPalette.onSurface)
                     .frame(width: 44, alignment: .leading)
-                if !compact {
-                    ProgressView(value: progress)
-                        .tint(taskAccent)
-                }
+                DownloadProgressBar(progress: progress, tint: taskAccent)
                 Button {
                     manager.cancelDownload()
                 } label: {
@@ -293,8 +321,14 @@ struct DownloadAndTryButton: View {
         .padding(.leading, 14)
         .padding(.trailing, 6)
         .frame(height: 42)
-        .frame(maxWidth: compact ? nil : .infinity)
+        .frame(maxWidth: .infinity)
         .glassCapsule()
+    }
+
+    /// Whole percent; "<1%" while a download has started but is under one percent.
+    private var percentLabel: String {
+        let percent = Int(progress * 100)
+        return percent == 0 && progress > 0 ? "<1%" : "\(percent)%"
     }
 
     private func handleTap() {

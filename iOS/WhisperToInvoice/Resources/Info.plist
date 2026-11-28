@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.lifestyle</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Whisper to Invoice records your voice so the on-device AI model can turn a spoken sale into an invoice. Audio never leaves your device.</string>
 	<key>UIAppFonts</key>
